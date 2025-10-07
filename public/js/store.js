@@ -123,7 +123,7 @@ function renderProducts(products) {
     
     productCard.innerHTML = `
       <div class="product-image">
-        <img src="${product.image_url || 'https://placehold.co/300x200/cccccc/FFFFFF?text=Imagen+No+Disponible'}" alt="${product.name}">
+        <img src="${product.image_url || '/img/product-placeholder.svg'}" alt="${product.name}">
         ${product.badge ? `<span class="product-badge ${product.badge.toLowerCase()}">${product.badge}</span>` : ''}
       </div>
       <div class="product-info">

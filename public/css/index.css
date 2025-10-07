@@ -17,6 +17,16 @@
   margin-bottom: 1rem;
   line-height: 1.2;
 }
+.brand-badge {
+  max-width: 220px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 8px 18px rgba(249, 115, 22, 0.25));
+}
+.brand-badge img {
+  width: 100%;
+  display: block;
+  border-radius: 20px;
+}
 .hero-text p {
   font-size: 1.2rem;
   margin-bottom: 2rem;

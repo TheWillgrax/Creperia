@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 380" role="img" aria-labelledby="title desc">
+  <title id="title">Equipo Crepería OyE</title>
+  <desc id="desc">Ilustración de la fundadora de Crepería OyE preparando crepas sobre una plancha.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff7ed" />
+      <stop offset="100%" stop-color="#fde68a" />
+    </linearGradient>
+    <linearGradient id="apron" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+    <linearGradient id="plancha" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="100%" stop-color="#4b5563" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#f59e0b" flood-opacity="0.35" />
+    </filter>
+  </defs>
+  <rect width="420" height="380" rx="32" fill="url(#bg)" />
+  <g filter="url(#shadow)" transform="translate(50 40)">
+    <rect x="0" y="220" width="320" height="110" rx="24" fill="#fff" opacity="0.65" />
+    <rect x="10" y="230" width="300" height="90" rx="20" fill="#fff" />
+    <rect x="30" y="250" width="260" height="50" rx="18" fill="url(#plancha)" />
+    <ellipse cx="160" cy="250" rx="90" ry="20" fill="#f59e0b" opacity="0.35" />
+    <ellipse cx="160" cy="240" rx="80" ry="16" fill="#fde68a" />
+    <ellipse cx="160" cy="232" rx="70" ry="14" fill="#fef3c7" stroke="#f59e0b" stroke-width="4" />
+    <path d="M160 120c-24 0-44 24-44 52 0 22 12 42 30 50 2 1 4 2 14 2s12-1 14-2c18-8 30-28 30-50 0-28-20-52-44-52z" fill="#fde68a" stroke="#f97316" stroke-width="4" />
+    <path d="M142 146c6-6 12-8 18-8s12 2 18 8" fill="none" stroke="#f97316" stroke-width="5" stroke-linecap="round" />
+    <path d="M136 162c8-10 18-14 24-14s16 4 24 14" fill="none" stroke="#f97316" stroke-width="5" stroke-linecap="round" />
+    <g transform="translate(112 60)">
+      <path d="M48 0c-18 0-32 14-32 32 0 10 4 18 10 24l-4 16c-0.6 2.8 1.8 5 4.5 4.3l12.5-3.4 12.5 3.4c2.7 0.7 5.1-1.5 4.5-4.3l-4-16c6-6 10-14 10-24 0-18-14-32-32-32z" fill="#fcd34d" stroke="#f59e0b" stroke-width="4" />
+      <path d="M30 30c4-4 10-6 18-6s14 2 18 6" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round" />
+      <path d="M26 42c5-6 12-8 22-8s17 2 22 8" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round" />
+    </g>
+    <path d="M160 140l-30 120h60z" fill="url(#apron)" />
+    <path d="M160 180c-20 0-32 12-44 30-5 8-2 18 6 24l20 16c10 8 26 8 36 0l20-16c8-6 11-16 6-24-12-18-24-30-44-30z" fill="#fb923c" />
+    <path d="M100 230l-18 28c-2.5 4 0.2 9 4.8 9h24l20-20" fill="#fbbf24" />
+    <path d="M220 230l18 28c2.5 4-0.2 9-4.8 9h-24l-20-20" fill="#fbbf24" />
+    <g transform="translate(66 90)">
+      <path d="M40 0c-16 0-28 12-28 26 0 8 4 14 8 18l-4 14c-0.5 2 1.4 3.6 3.3 3.1l12-2.8 12 2.8c1.9 0.5 3.8-1.1 3.3-3.1l-4-14c4-4 8-10 8-18 0-14-12-26-28-26z" fill="#fde68a" stroke="#f59e0b" stroke-width="3" />
+      <path d="M26 24c4-4 8-6 14-6s10 2 14 6" fill="none" stroke="#f97316" stroke-width="3.5" stroke-linecap="round" />
+    </g>
+    <g transform="translate(210 90)">
+      <path d="M40 0c-16 0-28 12-28 26 0 8 4 14 8 18l-4 14c-0.5 2 1.4 3.6 3.3 3.1l12-2.8 12 2.8c1.9 0.5 3.8-1.1 3.3-3.1l-4-14c4-4 8-10 8-18 0-14-12-26-28-26z" fill="#fde68a" stroke="#f59e0b" stroke-width="3" />
+      <path d="M26 24c4-4 8-6 14-6s10 2 14 6" fill="none" stroke="#f97316" stroke-width="3.5" stroke-linecap="round" />
+    </g>
+    <path d="M86 268c30 12 118 12 148 0" fill="none" stroke="#f59e0b" stroke-width="6" stroke-linecap="round" opacity="0.4" />
+  </g>
+</svg>

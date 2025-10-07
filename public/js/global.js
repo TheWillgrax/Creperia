@@ -43,7 +43,13 @@ const headerHTML = `
   <header>
     <div class="container">
       <nav class="navbar">
-        <a href="index.html" class="logo"><span>Crepería</span> <span>OyE</span></a>
+        <a href="index.html" class="logo">
+          <img src="/img/logo-oye-mark.svg" alt="" aria-hidden="true" />
+          <span class="logo-text">
+            <span>Crepería</span>
+            <span>OyE</span>
+          </span>
+        </a>
         <ul class="nav-links">
           <li><a href="index.html">Inicio</a></li>
           <li><a href="store.html">Tienda</a></li>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
+  <title id="title">Logotipo Crepería OyE</title>
+  <desc id="desc">Logotipo con un cono de crepa estilizado y tipografía cálida para la marca Crepería OyE.</desc>
+  <defs>
+    <linearGradient id="grad-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff3e0" />
+      <stop offset="100%" stop-color="#fde7c0" />
+    </linearGradient>
+    <linearGradient id="grad-cone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fddf9b" />
+      <stop offset="100%" stop-color="#e9a43a" />
+    </linearGradient>
+    <linearGradient id="grad-cream" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f9a8d4" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+    <linearGradient id="grad-outline" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#f59e0b" flood-opacity="0.35" />
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="320" height="220" rx="28" fill="url(#grad-bg)" />
+  <g filter="url(#shadow)">
+    <path d="M160 45c-36 0-62 20-62 47 0 18 10 31 25 39l-9 38c-1.4 6 4.3 11.2 10.3 9.4l36.5-11 36.5 11c6 1.8 11.7-3.4 10.3-9.4l-9-38c15-8 25-21 25-39 0-27-26-47-62-47z" fill="#fff6eb" stroke="#f97316" stroke-width="4" stroke-linejoin="round" />
+    <path d="M160 60c-26.5 0-45 13.8-45 32 0 12.8 7.8 23.3 20 29.6l-6.7 28.3 31.7-9.5 31.7 9.5-6.7-28.3c12.2-6.3 20-16.8 20-29.6 0-18.2-18.5-32-45-32z" fill="#fff" />
+    <path d="M160 78c-11 0-18 4.5-18 10 0 4.7 3.6 8.4 9.4 9.8l-4 17 12.6-3.7 12.6 3.7-4-17c5.8-1.4 9.4-5.1 9.4-9.8 0-5.5-7-10-18-10z" fill="#f97316" opacity="0.2" />
+    <path d="M141 74c5.2-4.8 11.7-7.3 19-7.3 7.3 0 13.8 2.5 19 7.3" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M133 85c6-6.8 14.6-10.3 27-10.3 12.4 0 21 3.5 27 10.3" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M126 96c7.4-8.6 18.7-13 34-13 15.3 0 26.6 4.4 34 13" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M150 153l10 5 10-5 14 5-24 22-24-22z" fill="url(#grad-cone)" stroke="#d97706" stroke-width="3" stroke-linejoin="round" />
+    <path d="M146 142l14 30 14-30" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(20 188)">
+    <text x="0" y="0" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="28" font-weight="700" fill="#b45309" letter-spacing="0.02em">Crepería</text>
+    <text x="0" y="28" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="44" font-weight="700" fill="url(#grad-outline)" letter-spacing="0.03em">OyE</text>
+  </g>
+</svg>
