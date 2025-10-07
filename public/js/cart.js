@@ -1,7 +1,7 @@
-// cart.js — toda la lógica del carrito (localStorage: 'heladeriaCart')
+// cart.js — toda la lógica del carrito (localStorage: 'creperiaCart')
 // Movido desde global. Exporta funciones globales para uso desde HTML/store.
 (function(){
-  const STORAGE_KEY = 'heladeriaCart';
+  const STORAGE_KEY = 'creperiaCart';
 
   // Inicializa la clave si no existe
   function ensureCartKey() {
@@ -99,7 +99,7 @@
         <div class="empty-cart">
           <i class="fas fa-shopping-cart"></i>
           <h3>Tu carrito está vacío</h3>
-          <p>¡Agrega algunos deliciosos helados!</p>
+          <p>¡Agrega algunas crepas irresistibles!</p>
           <a href="store.html" class="btn-pill">Ir a la tienda</a>
         </div>
       `;
@@ -234,7 +234,7 @@
     const promoInput = document.querySelector('.promo-input input');
     const promoCode = promoInput ? promoInput.value.trim() : '';
     if (!promoCode) { showNotification('Por favor ingresa un código de descuento', 'error'); return; }
-    const validCodes = { 'HELADO10': 0.1, 'VERANO20': 0.2, 'VICKY15': 0.15 };
+    const validCodes = { 'CREPA10': 0.1, 'DULCE15': 0.15, 'OYEFAN20': 0.2 };
     if (validCodes.hasOwnProperty(promoCode)) {
       const discount = validCodes[promoCode];
       applyDiscount(discount, promoCode);
@@ -247,7 +247,7 @@
 
   function applyDiscount(discount, code) {
     // Implementación mínima: guarda el descuento en sessionStorage para uso futuro
-    sessionStorage.setItem('heladeria_discount', JSON.stringify({ code, discount }));
+    sessionStorage.setItem('creperia_discount', JSON.stringify({ code, discount }));
     // Recalcular resumen (si se mostrara en UI real, aquí se aplicaría)
     updateCartSummary();
     console.log(`Aplicando descuento del ${discount * 100}% con código: ${code}`);

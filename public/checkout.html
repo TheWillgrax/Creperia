@@ -1,5 +1,5 @@
 <!-- ============================================================================
-checkout.html — Página de Checkout Heladería Victoria
+checkout.html — Página de Checkout Crepería OyE
 ============================================================================ -->
 
 <!DOCTYPE html>
@@ -7,8 +7,8 @@ checkout.html — Página de Checkout Heladería Victoria
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>🛒 Checkout - Creperia OyE</title>
-  <meta name="description" content="Revisa tu carrito y finaliza la compra en Heladería Victoria.">
+  <title>🛒 Checkout - Crepería OyE</title>
+  <meta name="description" content="Revisa tu carrito y finaliza la compra de crepas, bebidas y combos de Crepería OyE.">
 
   <!-- CSS global y específico -->
   <link rel="stylesheet" href="/css/global.css"/>
@@ -87,7 +87,7 @@ checkout.html — Página de Checkout Heladería Victoria
   <script>
     // Renderizar carrito en checkout
     function renderCheckoutCart() {
-      const cart = JSON.parse(localStorage.getItem('heladeriaCart') || '[]');
+      const cart = JSON.parse(localStorage.getItem('creperiaCart') || '[]');
       const tbody = document.getElementById('checkout-cart-body');
       const totalEl = document.getElementById('checkout-total');
 
@@ -122,7 +122,7 @@ checkout.html — Página de Checkout Heladería Victoria
       const email = document.getElementById('email').value;
       const address = document.getElementById('address').value;
       const payment = document.getElementById('payment-method').value;
-      const cart = JSON.parse(localStorage.getItem('heladeriaCart') || '[]');
+      const cart = JSON.parse(localStorage.getItem('creperiaCart') || '[]');
 
       if (!cart.length) {
         alert('Tu carrito está vacío.');
@@ -165,7 +165,7 @@ checkout.html — Página de Checkout Heladería Victoria
           localStorage.setItem('lastOrder', JSON.stringify(orderData));
 
           // Limpiar carrito y redirigir a la factura
-          localStorage.removeItem('heladeriaCart');
+          localStorage.removeItem('creperiaCart');
           window.location.href = '/factura.html';
         } else {
           alert('❌ Error al procesar el pedido: ' + data.error);

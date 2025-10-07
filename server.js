@@ -31,7 +31,7 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '1234',
-  database: process.env.DB_NAME || 'heladeria_db',
+  database: process.env.DB_NAME || 'creperia_db',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -188,7 +188,7 @@ async function testConnection() {
     console.error('❌ Error de conexión a la base de datos:', error.message);
     console.log('💡 Asegúrate de que:');
     console.log('1. MySQL esté ejecutándose');
-    console.log('2. La base de datos "heladeria_db" exista');
+    console.log('2. La base de datos "creperia_db" exista');
     console.log('3. Las credenciales en el archivo .env sean correctas');
     process.exit(1);
   }
@@ -1103,7 +1103,7 @@ const createDashboardCsv = (data) => {
   const lines = [];
   const formatCurrency = value => `Q${Number(value || 0).toFixed(2)}`;
 
-  lines.push(escapeCsvValue('Reporte Dashboard Heladería Victoria'));
+  lines.push(escapeCsvValue('Reporte Dashboard Crepería OyE'));
   lines.push(`${escapeCsvValue('Generado')},${escapeCsvValue(new Date().toISOString())}`);
   lines.push('');
   lines.push(`${escapeCsvValue('Periodo')},${escapeCsvValue('Desde')},${escapeCsvValue('Hasta')}`);

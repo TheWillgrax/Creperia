@@ -1,19 +1,19 @@
 :root {
-/* Nueva paleta de colores para heladería */
-  --color-primary: #FF6B8B;        /* Rosa fresa - Color principal */
-  --color-contrast: #42b89e;       /* Verde menta - Color secundario */
-  --color-dark: #502c3f;           /* Azul oscuro - Texto / Footer */
-  
+/* Paleta cálida inspirada en crepas y café */
+  --color-primary: #d97706;        /* Caramelo dorado - Color principal */
+  --color-contrast: #92400e;       /* Cacao tostado - Color secundario */
+  --color-dark: #422006;           /* Chocolate oscuro - Texto / Footer */
+
   /* Colores de fondo / claros */
-  --color-bg: #FFF5F5;             /* Rosa muy claro - Fondo general */
-  --color-light: #FFFFFF;          /* Blanco - Header / contenedores */
-  --color-secondary-bg: rgba(255,107,139,0.1); /* Hover / links / cards */
-  --color-text-muted: #7F8C8D;     /* Texto secundario */
-  --color-text-light: #ECF0F1;     /* Texto claro para footer */
+  --color-bg: #fdf6ed;             /* Crema batida - Fondo general */
+  --color-light: #ffffff;          /* Blanco - Header / contenedores */
+  --color-secondary-bg: rgba(217,119,6,0.12); /* Destellos caramelizados */
+  --color-text-muted: #8d7b68;     /* Café con leche - Texto secundario */
+  --color-text-light: #f8ede0;     /* Vainilla clara para footer */
 
   /* Colores puntuales */
-  --color-sale: #FF9F43;           /* Naranja - Ofertas */
-  --color-out-of-stock: #E74C3C;   /* Rojo - Producto agotado */
+  --color-sale: #f97316;           /* Mandarina - Ofertas */
+  --color-out-of-stock: #c2410c;   /* Cayena - Producto agotado */
 
   /* Tipografía */
   --font-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -529,7 +529,7 @@ footer {
   color: var(--color-primary);
 }
 
-.ice-cream-icon {
+.crepe-icon {
   color: var(--color-contrast);
   font-size: 3rem;
   animation: bounce 2s infinite;
@@ -620,7 +620,7 @@ footer {
     font-size: 3rem;
   }
   
-  .ice-cream-icon {
+  .crepe-icon {
     font-size: 2.5rem;
   }
   

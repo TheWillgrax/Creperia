@@ -21,7 +21,7 @@
     if (!order) {
       container.innerHTML = `
         <div class="invoice-header">
-          <div class="brand-badge">HV</div>
+          <div class="brand-badge">CO</div>
           <div class="header-text">
             <h1>Factura</h1>
             <p>No hay factura disponible.</p>
@@ -32,8 +32,8 @@
 
     // Datos “seller” (puedes reemplazar por los reales o traerlos del backend)
     const seller = {
-      name: 'Heladería Victoria',
-      nit: '1234567-VIC',
+      name: 'Crepería OyE',
+      nit: '1234567-OYE',
       phone: '(502) 5555-5555'
     };
 

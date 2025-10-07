@@ -1,5 +1,5 @@
   // ============================================================================
-  // dashboard.js - Heladería Victoria
+  // dashboard.js - Crepería OyE
   // ============================================================================
 
   const TOKEN_KEY = 'authToken';
@@ -568,7 +568,7 @@ async function exportDashboardToExcel() {
     createMonthlySummarySheet(workbook, dashboardData);
     
     // Generar el archivo
-    const fileName = `Dashboard_Heladeria_Victoria_${getCurrentDateFormatted()}.xlsx`;
+    const fileName = `Dashboard_Creperia_OyE_${getCurrentDateFormatted()}.xlsx`;
     XLSX.writeFile(workbook, fileName);
     
     // Notificar éxito
@@ -623,7 +623,7 @@ function collectDashboardData() {
  */
 function createExecutiveSummarySheet(workbook, data) {
   const ws_data = [
-    ['HELADERÍA VICTORIA - DASHBOARD EJECUTIVO'],
+    ['CREPERÍA OYE - DASHBOARD EJECUTIVO'],
     [''],
     ['Fecha de generación:', new Date().toLocaleString('es-GT')],
     ['Período analizado:', `${data.filters.from || 'N/A'} - ${data.filters.to || 'N/A'}`],
@@ -870,7 +870,7 @@ async function exportDashboardToExcelWithCharts() {
     const workbook = new ExcelJS.Workbook();
     
     // Configuración del libro
-    workbook.creator = 'Heladería Victoria';
+    workbook.creator = 'Crepería OyE';
     workbook.created = new Date();
     workbook.modified = new Date();
     
@@ -894,7 +894,7 @@ async function exportDashboardToExcelWithCharts() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `Dashboard_Victoria_${getCurrentDateFormatted()}.xlsx`;
+    link.download = `Dashboard_Creperia_OyE_${getCurrentDateFormatted()}.xlsx`;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -958,7 +958,7 @@ async function createSummarySheet(workbook, data) {
   // Título principal
   sheet.mergeCells('A1:D1');
   const titleCell = sheet.getCell('A1');
-  titleCell.value = 'HELADERÍA VICTORIA - DASHBOARD EJECUTIVO';
+  titleCell.value = 'CREPERÍA OYE - DASHBOARD EJECUTIVO';
   titleCell.font = { size: 16, bold: true, color: { argb: 'FF2563EB' } };
   titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
   titleCell.fill = {

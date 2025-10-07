@@ -65,7 +65,7 @@ const title = document.getElementById('panel-title');
 const viewMap = {
   '#perfil': { el: '#view-perfil', icon: 'fa-user-gear', title: 'Mis Datos' },
   '#usuarios': { el: '#view-usuarios', icon: 'fa-users', title: 'Usuarios', adminOnly: true },
-  '#productos': { el: '#view-productos', icon: 'fa-ice-cream', title: 'Productos', adminOnly: true },
+  '#productos': { el: '#view-productos', icon: 'fa-cookie', title: 'Productos', adminOnly: true },
   '#pedidos': { el: '#view-pedidos', icon: 'fa-receipt', title: 'Historial de Pedidos' },
   '#config': { el: '#view-config', icon: 'fa-sliders', title: 'Configuración' },
 };

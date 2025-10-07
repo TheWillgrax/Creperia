@@ -347,10 +347,25 @@ function initFilters() {
 function applyFilters(searchTerm = '') {
   let filtered = [...allProducts];
 
-  // Filtrar por categoría
-  const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(c => c.value.toLowerCase());
+  // Filtrar por categoría con soporte de alias (heladería → crepería)
+  const categoryMap = {
+    'crepas-dulces': ['crepas dulces', 'crepa dulce', 'postres', 'helados', 'dulces'],
+    'crepas-saladas': ['crepas saladas', 'crepa salada', 'salados', 'comida salada'],
+    'bebidas': ['bebidas', 'cafés', 'cafes', 'malteadas', 'batidos', 'bebidas & cafés'],
+    'combos': ['combos', 'promociones', 'promos', 'packs']
+  };
+
+  const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked'))
+    .map(c => c.value.toLowerCase());
+
   if (selectedCategories.length > 0) {
-    filtered = filtered.filter(p => selectedCategories.includes((p.category_name || '').toLowerCase()));
+    filtered = filtered.filter(p => {
+      const productCategory = (p.category_name || '').toLowerCase();
+      return selectedCategories.some(value => {
+        const synonyms = categoryMap[value] || [value];
+        return synonyms.includes(productCategory);
+      });
+    });
   }
 
   // Filtrar por precio máximo
