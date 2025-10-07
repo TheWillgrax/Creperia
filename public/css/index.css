@@ -1,0 +1,275 @@
+/* =========================
+   index.css – estilos exclusivos del index
+   ========================= */
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+  margin: 3rem auto;
+  min-height: 75vh;
+}
+.hero-text h1 {
+  font-size: 2.8rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #555;
+}
+.hero-img {
+  position: relative;
+}
+.hero-img img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+/* Carrusel */
+.carousel-shell {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  margin-bottom: 4rem;
+}
+.carousel-viewport {
+  overflow: hidden;
+  padding: 0 15px;
+}
+.carousel-track {
+  display: flex;
+  gap: var(--gap);
+  transition: transform 0.4s ease;
+}
+
+/* Controles carrusel */
+.carousel-btn {
+  background: var(--color-primary);
+  color: var(--color-light);
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(79, 51, 131, 0.2);
+  z-index: 2;
+  font-size: 1.2rem;
+  transition: var(--transition);
+}
+.carousel-btn:hover {
+  background: var(--color-contrast);
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(52, 156, 92, 0.25);
+}
+.carousel-btn[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Estilos adicionales para el carrusel */
+    .carousel-shell {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .carousel-viewport {
+      overflow: hidden;
+      width: 100%;
+    }
+    
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      gap: 1.5rem;
+    }
+    
+    .carousel-item {
+      flex: 0 0 calc(25% - 1.5rem);
+      min-width: 0;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(79, 51, 131, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(79, 51, 131, 0.25);
+    }
+    
+    .product-image {
+      position: relative;
+      height: 180px;
+      overflow: hidden;
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+    
+    .product-info {
+      padding: 1.2rem;
+    }
+    
+    .product-info h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      color: #4F3383;
+      font-weight: 600;
+    }
+    
+    .product-price {
+      color: #FF6B8B;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .product-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .card-btn {
+      flex: 1;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    
+
+    
+    .card-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .carousel-item {
+        flex: 0 0 calc(33.333% - 1.5rem);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .carousel-item {
+        flex: 0 0 calc(50% - 1.5rem);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .carousel-item {
+        flex: 0 0 100%;
+      }
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #4F3383;
+    }
+
+/* Sección Personalizables */
+.custom-section {
+  background: linear-gradient(135deg, #6a4daf 0%, #7e5cc5 100%);
+  color: white;
+  padding: 5rem 0;
+  margin: 5rem 0;
+}
+.custom-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.custom-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.2rem;
+}
+.custom-text p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+/* Testimonios */
+.testimonials-section {
+  background: var(--color-bg);
+  padding: 5rem 0;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+.testimonial-text {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.testimonial-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 1.2rem;
+}
+.testimonial-info h4 {
+  margin: 0;
+  color: var(--color-dark);
+}
+.testimonial-info p {
+  margin: 0;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* Responsive exclusivos index */
+@media (max-width: 992px) {
+  .hero { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; }
+  .custom-content { grid-template-columns: 1fr; text-align: center; }
+}
+@media (max-width: 768px) {
+  .hero-text h1 { font-size: 2.3rem; }
+  .section-title { font-size: 2.2rem; }
+  .card-actions { flex-direction: column; }
+}

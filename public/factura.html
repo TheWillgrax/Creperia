@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Factura - Heladería Victoria</title>
+
+  <link rel="stylesheet" href="/css/global.css"/>
+  <link rel="stylesheet" href="/css/factura.css"/>
+
+  <!-- jsPDF + AutoTable (para tabla en el PDF) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js" defer></script>
+</head>
+<body class="invoice-page">
+  <div id="header-placeholder"></div>
+
+  <main class="invoice-container" aria-labelledby="invoice-title">
+    <!-- Header -->
+    <header class="invoice-header">
+      <div class="brand-badge" aria-hidden="true">HV</div>
+      <div class="header-text">
+        <h1 id="invoice-title">Factura</h1>
+        <p>Heladería Victoria · RFC/NIT: 1234567-VIC · Tel: (502) 5555-5555</p>
+      </div>
+    </header>
+
+    <!-- Meta + Cliente -->
+    <section class="invoice-meta" aria-label="Información de factura y cliente">
+      <article class="card" id="invoice-meta" aria-live="polite">
+        <h3>Detalles de la factura</h3>
+        <div class="kv">
+          <span>Orden #</span><span id="meta-order">—</span>
+          <span>Fecha</span><span id="meta-date">—</span>
+          <span>Estado</span><span id="meta-status">Pagada</span>
+          <span>Método</span><span id="meta-method">—</span>
+        </div>
+      </article>
+
+      <article class="card" id="customer-info">
+        <h3>Cliente</h3>
+        <div class="kv">
+          <span>Nombre</span><span id="c-name">—</span>
+          <span>Email</span><span id="c-email">—</span>
+          <span>Dirección</span><span id="c-address">—</span>
+        </div>
+      </article>
+    </section>
+
+    <!-- Items -->
+    <section class="table-wrap" aria-label="Productos">
+      <table class="invoice-table">
+        <thead>
+          <tr>
+            <th style="width:42%">Producto</th>
+            <th style="width:14%">Cantidad</th>
+            <th style="width:22%">Precio</th>
+            <th style="width:22%">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="invoice-items"></tbody>
+      </table>
+    </section>
+
+    <!-- Totales -->
+    <section class="totals" aria-label="Totales">
+      <table>
+        <tr>
+          <td>Subtotal</td>
+          <td id="t-subtotal">Q0.00</td>
+        </tr>
+        <tr>
+          <td>IVA (12%)</td>
+          <td id="t-tax">Q0.00</td>
+        </tr>
+        <tr class="total-row">
+          <td>Total</td>
+          <td id="t-total">Q0.00</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Acciones -->
+    <section class="invoice-actions">
+      <button id="download-invoice" class="btn">Descargar PDF</button>
+      <button id="print-invoice" class="btn secondary">Imprimir</button>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="/js/global.js" defer></script>
+  <script src="/js/factura.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Creperia OyE</title>
+  <meta name="description" content="Descubre nuestros sabores artesanales y opciones personalizadas. Helados, paletas, toppings y más.">
+  <link rel="stylesheet" href="/css/global.css"/>
+  <link rel="stylesheet" href="/css/index.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+  <div id="header-placeholder" aria-hidden="true"></div>
+
+  <section class="hero container">
+    <div class="hero-text">
+      <h1>Donde el sabor se encuentra con la tradición</h1>
+      <p>En Heladería Victoria, elaboramos helados artesanales con ingredientes selectos. Descubre nuestros sabores, paletas y opciones personalizables.</p>
+      <a href="store.html" class="btn">Explorar Catálogo</a>
+    </div>
+    <div class="hero-img">
+      <img src="/img/logo.png" alt="Productos Heladería Victoria" />
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Productos Destacados</h2>
+
+    <div class="carousel-shell">
+      <button class="carousel-btn prev" aria-label="Productos anteriores">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="products-track">
+          <div class="loading">Cargando productos...</div>
+        </div>
+      </div>
+
+      <button class="carousel-btn next" aria-label="Productos siguientes">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <section class="testimonials-section">
+    <div class="container">
+      <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+      <div class="testimonials-grid">
+        
+        <!-- Testimonio 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            "La calidad de los helados es excelente. Superó todas mis expectativas y llegó perfectamente empaquetado."
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JL</div>
+            <div class="testimonial-info">
+              <h4>Juan López</h4>
+              <p>Cliente satisfecho</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            "Compré varios packs de toppings y la calidad es increíble. Se ven geniales en mi helado y aguantan muy bien el uso diario."
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">MG</div>
+            <div class="testimonial-info">
+              <h4>María García</h4>
+              <p>Cliente frecuente</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            "El proceso de compra fue muy sencillo y el producto llegó antes de lo esperado. ¡Definitivamente recomiendo Heladería Victoria!"
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">CR</div>
+            <div class="testimonial-info">
+              <h4>Carlos Rodríguez</h4>
+              <p>Nuevo cliente</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder" aria-hidden="true"></div>
+
+  <script src="/js/global.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/index.js"></script>
+
+</body>
+</html>

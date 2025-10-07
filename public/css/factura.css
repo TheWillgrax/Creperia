@@ -1,0 +1,155 @@
+:root{
+  --brand:#0ea5e9;        /* celeste */
+  --ink:#0f172a;          /* gris-azul oscuro */
+  --muted:#64748b;        /* gris medio */
+  --line:#e2e8f0;         /* gris claro */
+  --bg:#ffffff;
+  --radius:14px;
+}
+
+.invoice-page {
+  background: #f6f8fb;
+  padding: 2rem 1rem;
+}
+
+.invoice-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 28px rgba(2,6,23,.08);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+/* Header */
+.invoice-header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #fff, #fafbff);
+}
+.brand-badge {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: var(--brand);
+  display: grid; place-items: center;
+  color: white; font-weight: 800;
+  letter-spacing: .5px;
+}
+.header-text h1{
+  margin:0;
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  color: var(--ink);
+}
+.header-text p{
+  margin:.15rem 0 0;
+  color: var(--muted);
+  font-size:.95rem;
+}
+
+/* Meta + Cliente */
+.invoice-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+}
+.card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  background: #fff;
+}
+.card h3{
+  margin:.2rem 0 .75rem;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.kv{
+  display:grid; grid-template-columns: 150px 1fr; row-gap:.4rem; column-gap:.75rem;
+  font-size:.95rem;
+}
+.kv span:first-child{ color:var(--muted); }
+.kv span:last-child{ color:var(--ink); }
+
+/* Tabla de items */
+.table-wrap { padding: 0 1.5rem 1.25rem; }
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.invoice-table thead th{
+  background: #f1f5f9;
+  color: #0b1220;
+  font-weight: 700;
+  text-align: left;
+  padding: .8rem .9rem;
+  font-size:.95rem;
+  border-bottom: 1px solid var(--line);
+}
+.invoice-table td{
+  padding: .7rem .9rem;
+  border-bottom: 1px solid var(--line);
+  font-size:.95rem;
+}
+.invoice-table tbody tr:nth-child(odd){
+  background: #fcfdff;
+}
+
+/* Totales */
+.totals {
+  display:grid; gap:.5rem;
+  justify-content: end;
+  padding: .8rem 1.5rem 1.5rem;
+}
+.totals table{
+  min-width: 320px; border-collapse: collapse;
+}
+.totals td{
+  padding:.35rem .75rem;
+  font-size: 1rem;
+}
+.totals td:first-child{ color: var(--muted); }
+.totals tr.total-row td{
+  font-weight: 800;
+  border-top: 2px solid var(--line);
+  padding-top:.6rem;
+  font-size: 1.05rem;
+}
+
+/* Acciones y notas */
+.invoice-actions {
+  display:flex; gap:.75rem; flex-wrap: wrap;
+  padding: 0 1.5rem 1.5rem;
+}
+.btn {
+  appearance: none;
+  border: 1px solid var(--brand);
+  background: var(--brand);
+  color: white;
+  padding: .65rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .2s ease, opacity .2s;
+  box-shadow: 0 6px 18px rgba(14,165,233,.25);
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn.secondary{
+  background: #fff; color: var(--ink); border-color: var(--line);
+  box-shadow: 0 3px 10px rgba(2,6,23,.06);
+}
+
+/* Print */
+@media print {
+  .invoice-page { padding: 0; background: #fff; }
+  .invoice-container { box-shadow: none; border: none; }
+  .invoice-actions { display: none !important; }
+  @page { size: A4; margin: 12mm; }
+}

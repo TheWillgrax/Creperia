@@ -1,0 +1,121 @@
+/* contact.css - Estilos específicos para la página de contacto */
+
+.contact-section {
+  padding: 4rem 0;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--color-text-muted);
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.contact-form, .contact-info {
+  background: var(--color-light);
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: var(--transition);
+}
+
+.contact-form:hover, .contact-info:hover {
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.contact-form h3, .contact-info h3 {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.contact-form h3:after, .contact-info h3:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--color-contrast);
+  border-radius: 2px;
+}
+
+.map-container {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.contact-details {
+  margin-top: 2rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.contact-item:hover {
+  background: var(--color-secondary-bg);
+}
+
+.contact-item i {
+  width: 24px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+}
+
+.contact-item div p:first-child {
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 0.2rem;
+}
+
+.contact-item a {
+  color: var(--color-contrast);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.contact-item a:hover {
+  color: var(--color-primary);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .contact-form, .contact-info {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-form, .contact-info {
+    padding: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+}

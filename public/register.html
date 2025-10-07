@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Crear cuenta — Heladería Victoria</title>
+  <link rel="stylesheet" href="/css/global.css"/>
+  <link rel="stylesheet" href="/css/register.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+</head>
+<body>
+  <div id="header-placeholder" aria-hidden="true"></div>
+
+  <main class="auth-shell">
+    <div class="card">
+      <h1>Crear cuenta</h1>
+      <p class="help">Completa tus datos para comprar más rápido y revisar tus pedidos.</p>
+
+      <form id="register-form" novalidate>
+        <div class="row">
+          <label for="name">Nombre completo</label>
+          <input class="input" id="name" name="name" required maxlength="100" placeholder="Ej. Juan Pérez"/>
+          <div class="error" data-err="name"></div>
+        </div>
+
+        <div class="row">
+          <label for="email">Correo electrónico</label>
+          <input class="input" id="email" name="email" type="email" required maxlength="150" placeholder="tucorreo@dominio.com"/>
+          <div class="error" data-err="email"></div>
+        </div>
+
+        <div class="row grid-2">
+          <div>
+            <label for="password">Contraseña</label>
+            <div class="pw-wrap">
+              <input class="input" id="password" name="password" type="password" required minlength="6" placeholder="Mínimo 6 caracteres"/>
+              <i class="fa-solid fa-eye pw-toggle" data-for="password" title="Mostrar/Ocultar"></i>
+            </div>
+            <div id="pw-meter" class="meter"><span></span></div>
+            <small>Use al menos 6 caracteres con letras y números</small>
+          </div>
+          <div>
+            <label for="password2">Confirmar contraseña</label>
+            <div class="pw-wrap">
+              <input class="input" id="password2" name="password2" type="password" required minlength="6" placeholder="Repite tu contraseña"/>
+              <i class="fa-solid fa-eye pw-toggle" data-for="password2" title="Mostrar/Ocultar"></i>
+            </div>
+            <div class="error" data-err="password2"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="phone">Teléfono (opcional)</label>
+          <input class="input" id="phone" name="phone" placeholder="+502 5xxx-xxxx"/>
+        </div>
+
+        <div class="row">
+          <label for="address">Dirección (opcional)</label>
+          <textarea class="input" id="address" name="address" rows="2" placeholder="Tu dirección para entregas"></textarea>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-ghost" href="/login">Ya tengo cuenta</a>
+          <button class="btn btn-primary" type="submit" id="submit-btn">Crear cuenta</button>
+        </div>
+
+        <div id="form-msg" class="success"></div>
+        <div id="form-error" class="error"></div>
+      </form>
+    </div>
+  </main>
+
+  <div id="footer-placeholder" aria-hidden="true"></div>
+  <script src="/js/global.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/register.js"></script>
+
+  
+</body>
+</html>

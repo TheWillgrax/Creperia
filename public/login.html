@@ -1,0 +1,77 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>🍨 Iniciar Sesión - Creperia OyE</title>
+  <meta name="description" content="Inicia sesión en tu cuenta de Heladería Victoria para disfrutar de beneficios exclusivos y gestionar tus pedidos.">
+
+  <link rel="stylesheet" href="/css/global.css"/>
+  <link rel="stylesheet" href="/css/login.css"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body class="login-page">
+
+  <div id="header-placeholder" aria-hidden="true"></div>
+
+  <section class="login-section container">
+    <div class="login-container">
+
+      <div class="login-header">
+        <h2>Bienvenido de vuelta</h2>
+        <p>Ingresa a tu cuenta para gestionar tus pedidos y disfrutar de beneficios exclusivos</p>
+      </div>
+
+      <form id="login-form" class="login-form">
+        <div id="login-message" class="message" style="display: none;"></div>
+        
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="tu@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Ingresa tu contraseña" required>
+          <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-login">
+            <i class="fas fa-sign-in-alt"></i> Ingresar
+          </button>
+        </div>
+      </form>
+
+      <div class="login-divider"><span>o</span></div>
+
+      <div class="alternative-actions">
+        <button id="register-btn" class="btn btn-register">
+          <i class="fas fa-user-plus"></i> Crear cuenta nueva
+        </button>
+      </div>
+
+      <div class="login-benefits">
+        <h3>Beneficios de tener una cuenta</h3>
+        <ul>
+          <li><i class="fas fa-check-circle"></i> Historial de pedidos</li>
+          <li><i class="fas fa-check-circle"></i> Descuentos exclusivos</li>
+          <li><i class="fas fa-check-circle"></i> Pago más rápido</li>
+          <li><i class="fas fa-check-circle"></i> Seguimiento de entregas</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="footer-placeholder" aria-hidden="true"></div>
+
+  <script src="/js/global.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/login.js"></script>
+
+</body>
+</html>

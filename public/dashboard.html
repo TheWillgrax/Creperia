@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>📊 Dashboard - Heladería Victoria</title>
+  <link rel="stylesheet" href="/css/global.css"/>
+  <link rel="stylesheet" href="/css/admin.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Estilos adicionales para el nuevo botón -->
+  <style>
+    .action-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+    }
+    
+    .action-btn i {
+      font-size: 16px;
+    }
+    
+    .action-btn[aria-busy="true"] {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .export-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder" aria-hidden="true"></div>
+  <main class="account-shell">
+    <div class="account-title">DASHBOARD</div>
+    <section class="panel">
+      <div class="section-header">
+        <h2 class="section-title"><i class="fas fa-chart-line"></i> Estadísticas y reportería</h2>
+      </div>
+      <div class="divider"></div>
+
+      <div class="card">
+        <div class="filters-grid">
+          <form id="filters" class="filters-form" autocomplete="off">
+            <div class="row"><label for="from">Desde</label><input type="date" id="from" class="input"/></div>
+            <div class="row"><label for="to">Hasta</label><input type="date" id="to" class="input"/></div>
+            <div class="row">
+              <label for="quickRange">Rango rápido</label>
+              <select id="quickRange" class="input">
+                <option value="7">Últimos 7 días</option>
+                <option value="30" selected>Últimos 30 días</option>
+                <option value="thisMonth">Mes en curso</option>
+                <option value="lastMonth">Mes anterior</option>
+                <option value="year">Año en curso</option>
+                <option value="custom">Personalizado</option>
+              </select>
+            </div>
+          </form>
+
+          <!-- ✅ Nuevo bloque de exportación -->
+          <div class="export-actions" aria-label="Opciones de reportería">
+            <button type="button" id="refreshDashboard" class="action-btn" data-loading-text="Actualizando…">
+              <i class="fas fa-rotate-right"></i>
+              Actualizar
+            </button>
+            
+            <!-- NUEVO: Botón Excel con Gráficas -->
+            <button type="button" id="exportExcelCharts" class="action-btn" data-loading-text="Generando…" 
+                    title="Descargar Excel completo con gráficas embebidas">
+              <i class="fas fa-file-excel"></i>
+              Excel con Gráficas
+            </button>
+            
+            <button type="button" id="exportCsv" class="action-btn secondary" data-loading-text="Generando…">
+              <i class="fas fa-file-csv"></i>
+              CSV
+            </button>
+            
+            <button type="button" id="exportJson" class="action-btn ghost" data-loading-text="Generando…">
+              <i class="fas fa-file-code"></i>
+              JSON
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Usuarios activos</span>
+            <strong id="stat-users" class="stat-value">0</strong>
+            <small class="stat-helper">Total de cuentas registradas</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Productos publicados</span>
+            <strong id="stat-products" class="stat-value">0</strong>
+            <small class="stat-helper">Inventario disponible en catálogo</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Pedidos procesados</span>
+            <strong id="stat-orders" class="stat-value">0</strong>
+            <small class="stat-helper">Órdenes dentro del periodo</small>
+          </article>
+          <article class="stat-card highlight">
+            <span class="stat-label">Ventas totales</span>
+            <strong id="stat-sales" class="stat-value">Q0.00</strong>
+            <small class="stat-helper">Ingresos brutos</small>
+          </article>
+          <article class="stat-card warning">
+            <span class="stat-label">Gastos operativos</span>
+            <strong id="stat-expenses" class="stat-value">Q0.00</strong>
+            <small class="stat-helper">Registros contables</small>
+          </article>
+          <article class="stat-card success">
+            <span class="stat-label">Utilidad neta</span>
+            <strong id="stat-net-income" class="stat-value">Q0.00</strong>
+            <small class="stat-helper">Ventas - Gastos</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Ticket promedio</span>
+            <strong id="stat-avg-ticket" class="stat-value">Q0.00</strong>
+            <small class="stat-helper">Promedio por pedido</small>
+          </article>
+        </div>
+      </div>
+
+      <div class="grid-2 dashboard-grid">
+        <div class="card">
+          <h3 class="card-title"><i class="fas fa-calendar-day"></i> Ventas diarias</h3>
+          <p class="card-helper">Seguimiento diario de ingresos confirmados</p>
+          <canvas id="salesChart" height="140" aria-label="Gráfico de ventas diarias"></canvas>
+        </div>
+        <div class="card">
+          <h3 class="card-title"><i class="fas fa-scale-balanced"></i> Ventas vs. gastos</h3>
+          <p class="card-helper">Comparativo mensual de ingresos y egresos</p>
+          <canvas id="financeChart" height="140" aria-label="Gráfico financiero mensual"></canvas>
+        </div>
+      </div>
+
+      <div class="grid-2 dashboard-grid">
+        <div class="card">
+          <h3 class="card-title"><i class="fas fa-pie-chart"></i> Ventas por categoría</h3>
+          <p class="card-helper">Distribución de ingresos por línea de producto</p>
+          <canvas id="categoryChart" height="200" aria-label="Gráfico de ventas por categoría"></canvas>
+        </div>
+        <div class="card">
+          <h3 class="card-title"><i class="fas fa-ice-cream"></i> Top productos</h3>
+          <p class="card-helper">Ranking de artículos más vendidos</p>
+          <div class="table-wrapper">
+            <table class="data-table" aria-label="Productos más vendidos">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Unidades</th>
+                  <th>Ingresos</th>
+                </tr>
+              </thead>
+              <tbody id="topProductsBody">
+                <tr><td colspan="3" class="muted">Sin datos en el periodo seleccionado</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title"><i class="fas fa-calendar-alt"></i> Resumen mensual</h3>
+        <p class="card-helper">Consolidado contable para control administrativo</p>
+        <div class="table-wrapper">
+          <table class="data-table" aria-label="Resumen mensual de ventas y gastos">
+            <thead>
+              <tr>
+                <th>Mes</th>
+                <th>Ventas</th>
+                <th>Gastos</th>
+                <th>Utilidad</th>
+                <th>Pedidos</th>
+              </tr>
+            </thead>
+            <tbody id="monthlySummaryBody">
+              <tr><td colspan="5" class="muted">Seleccione un rango de fechas para generar el reporte</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="footer-placeholder" aria-hidden="true"></div>
+  <script src="/js/global.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <!-- Al final del body, antes de </body> -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="/js/global.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

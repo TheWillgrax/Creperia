@@ -1,0 +1,427 @@
+/* store.css - Estilos específicos para la página de tienda */
+
+/* Barra de búsqueda en el header */
+.store-search-container {
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.8rem 0;
+}
+
+.store-search-form {
+  display: flex;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.store-search-form input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  padding-right: 3rem;
+  border: 2px solid #e9ecef;
+  border-radius: 25px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  background: var(--color-light);
+}
+
+.store-search-form input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 107, 139, 0.1);
+}
+
+.store-search-form button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.store-search-form button:hover {
+  background: var(--color-secondary-bg);
+  transform: scale(1.1);
+}
+
+/* Ajustar el header sticky para acomodar la barra de búsqueda */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--color-light);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustar el sidebar para que no se superponga con la nueva barra de búsqueda */
+.store-sidebar {
+  top: 140px; /* Aumentado para acomodar la barra de búsqueda */
+}
+
+/* Mensaje de no resultados */
+#no-results-message {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--color-text-muted);
+  grid-column: 1 / -1;
+}
+
+#no-results-message i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--color-primary-light);
+}
+
+#no-results-message h3 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+/* Resto de los estilos existentes */
+.store-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+  min-height: calc(100vh - 200px);
+  align-items: start;
+}
+
+/* Barra lateral de filtros */
+.store-sidebar {
+  background: var(--color-light);
+  border-radius: var(--radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  position: sticky;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+
+.sidebar-sticky {
+  position: sticky;
+  top: 0;
+}
+
+.store-sidebar h3 {
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  border-bottom: 2px solid var(--color-secondary-bg);
+  padding-bottom: 0.5rem;
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.filter-group h4 {
+  color: var(--color-primary);
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  padding-right: 2.5rem;
+  border: 2px solid #e9ecef;
+  border-radius: 25px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.search-box input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 107, 139, 0.1);
+}
+
+.search-box button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 5px;
+  transition: var(--transition);
+}
+
+.filter-checkbox:hover {
+  background: var(--color-secondary-bg);
+}
+
+.filter-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+}
+
+.price-range {
+  padding: 0.5rem 0;
+}
+
+.slider {
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  background: #e9ecef;
+  outline: none;
+  appearance: none;        /* Estándar */
+  -webkit-appearance: none; /* WebKit */
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+}
+
+.price-values {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.sort-select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  background: white;
+}
+
+.sort-select:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 107, 139, 0.1);
+}
+
+.filter-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+/* Sección principal de productos */
+.store-main {
+  padding: 0 1rem;
+}
+
+.store-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.store-header h2 {
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+}
+
+.store-header p {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.product-card {
+  background: var(--color-light);
+  border-radius: var(--radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.product-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--color-contrast);
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.product-badge.sale {
+  background: var(--color-sale);
+}
+
+.product-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-info h3 {
+  color: var(--color-primary);
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.product-desc {
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.product-price {
+  color: var(--color-contrast);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.sale-price {
+  color: var(--color-sale);
+}
+
+.product-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .store-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .store-sidebar {
+    position: static;
+    max-height: none;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  .store-search-form {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 576px) {
+  .store-container {
+    padding: 1rem 0;
+  }
+  
+  .store-sidebar {
+    padding: 1rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .store-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .store-search-container {
+    padding: 0.5rem 0;
+  }
+  
+  .store-search-form input {
+    padding: 0.6rem 0.8rem;
+    padding-right: 2.5rem;
+  }
+}

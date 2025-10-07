@@ -1,0 +1,183 @@
+<!-- ============================================================================
+checkout.html — Página de Checkout Heladería Victoria
+============================================================================ -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>🛒 Checkout - Creperia OyE</title>
+  <meta name="description" content="Revisa tu carrito y finaliza la compra en Heladería Victoria.">
+
+  <!-- CSS global y específico -->
+  <link rel="stylesheet" href="/css/global.css"/>
+  <link rel="stylesheet" href="/css/checkout.css"/>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Contenedor principal -->
+  <div class="checkout-container">
+    <h2>Checkout</h2>
+    <p>Revisa tu pedido y confirma tus datos.</p>
+
+    <!-- Resumen del carrito -->
+    <section class="checkout-cart">
+      <h3>🧾 Resumen del pedido</h3>
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="checkout-cart-body">
+          <!-- Aquí se insertan dinámicamente los productos -->
+        </tbody>
+      </table>
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="checkout-total">Q0.00</span>
+      </div>
+    </section>
+
+    <!-- Datos del cliente -->
+    <section class="checkout-form">
+      <h3>👤 Tus datos</h3>
+      <form id="checkout-form">
+        <label>
+          Nombre completo:
+          <input type="text" id="name" required>
+        </label>
+        <label>
+          Correo electrónico:
+          <input type="email" id="email" required>
+        </label>
+        <label>
+          Dirección de entrega:
+          <textarea id="address" required></textarea>
+        </label>
+        <label>
+          Método de pago:
+          <select id="payment-method" required>
+            <option value="">Selecciona una opción</option>
+            <option value="tarjeta">💳 Tarjeta de crédito/débito</option>
+            <option value="efectivo">💵 Pago contra entrega</option>
+          </select>
+        </label>
+
+        <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="/js/global.js"></script>
+  <script src="/js/cart.js"></script>
+  <script>
+    // Renderizar carrito en checkout
+    function renderCheckoutCart() {
+      const cart = JSON.parse(localStorage.getItem('heladeriaCart') || '[]');
+      const tbody = document.getElementById('checkout-cart-body');
+      const totalEl = document.getElementById('checkout-total');
+
+      if (!cart.length) {
+        tbody.innerHTML = '<tr><td colspan="4">Tu carrito está vacío</td></tr>';
+        totalEl.textContent = 'Q0.00';
+        return;
+      }
+
+      let total = 0;
+      tbody.innerHTML = '';
+      cart.forEach(item => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+        tbody.insertAdjacentHTML('beforeend', `
+          <tr>
+            <td>${item.name}</td>
+            <td>${item.quantity}</td>
+            <td>Q${item.price.toFixed(2)}</td>
+            <td>Q${subtotal.toFixed(2)}</td>
+          </tr>
+        `);
+      });
+
+      totalEl.textContent = 'Q' + total.toFixed(2);
+    }
+
+    // Manejar envío del formulario
+    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const address = document.getElementById('address').value;
+      const payment = document.getElementById('payment-method').value;
+      const cart = JSON.parse(localStorage.getItem('heladeriaCart') || '[]');
+
+      if (!cart.length) {
+        alert('Tu carrito está vacío.');
+        return;
+      }
+
+      // Preparar items para el backend
+      const items = cart.map(i => ({
+        id: i.id,
+        name: i.name,
+        price: i.price,
+        quantity: i.quantity
+      }));
+
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            customer_name: name,
+            customer_email: email,
+            customer_address: address,
+            payment_method: payment,
+            items
+          })
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          alert('✅ Pedido realizado con éxito. ¡Gracias por tu compra!');
+
+          // Guardar información de la orden para generar la factura
+          const orderData = {
+            orderId: data.order_id,
+            total: data.total,
+            customer: { name, email, address },
+            items: cart,
+            createdAt: new Date().toISOString()
+          };
+          localStorage.setItem('lastOrder', JSON.stringify(orderData));
+
+          // Limpiar carrito y redirigir a la factura
+          localStorage.removeItem('heladeriaCart');
+          window.location.href = '/factura.html';
+        } else {
+          alert('❌ Error al procesar el pedido: ' + data.error);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('❌ No se pudo conectar con el servidor.');
+      }
+    });
+
+    // Cargar carrito al abrir
+    renderCheckoutCart();
+  </script>
+</body>
+</html>

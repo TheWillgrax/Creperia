@@ -1,0 +1,136 @@
+<!-- ============================================================================
+store.html — Página Tienda Heladería Victoria
+============================================================================ -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- ------------------------------------------------------------------------
+       Metadatos principales
+  ------------------------------------------------------------------------ -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>🍨 Tienda - Heladería Victoria</title>
+  <meta name="description" content="Descubre nuestros deliciosos helados artesanales. Compra online tus sabores favoritos de la Heladería Victoria.">
+
+  <!-- ------------------------------------------------------------------------
+       CSS global y específico
+  ------------------------------------------------------------------------ -->
+  <link rel="stylesheet" href="/css/global.css"/>
+  <link rel="stylesheet" href="/css/store.css"/>
+
+  <!-- ------------------------------------------------------------------------
+       Font Awesome para iconos
+  ------------------------------------------------------------------------ -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- ==========================================================================
+       Header dinámico
+  ========================================================================== -->
+  <div id="header-placeholder" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       Contenedor principal de la tienda
+  ========================================================================== -->
+  <div class="store-container">
+
+    <!-- ==========================================================================
+         Barra lateral de filtros
+    ========================================================================== -->
+    <aside class="store-sidebar">
+      <div class="sidebar-sticky">
+        <h3>Filtrar Productos</h3>
+
+        <!-- Filtro por categorías -->
+        <div class="filter-group">
+          <h4>Categorías</h4>
+          <div class="filter-options">
+            <label class="filter-checkbox">
+              <input type="checkbox" name="category" value="helados">
+              <span class="checkmark"></span>
+              Helados
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" name="category" value="copas">
+              <span class="checkmark"></span>
+              Copas
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" name="category" value="promociones">
+              <span class="checkmark"></span>
+              Promociones
+            </label>
+          </div>
+        </div>
+
+        <!-- Filtro por precio -->
+        <div class="filter-group">
+          <h4>Rango de Precio</h4>
+          <div class="price-range">
+            <input type="range" min="0" max="100" value="100" class="slider" id="price-range">
+            <div class="price-values">
+              <span>Q0</span>
+              <span>Q100</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ordenar por -->
+        <div class="filter-group">
+          <h4>Ordenar por</h4>
+          <select class="sort-select">
+            <option value="popularidad">Popularidad</option>
+            <option value="precio-low">Precio: Menor a Mayor</option>
+            <option value="precio-high">Precio: Mayor a Menor</option>
+            <option value="nombre">Nombre A-Z</option>
+          </select>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="filter-actions">
+          <button class="btn btn-pill outline">Aplicar</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==========================================================================
+         Sección principal de productos
+    ========================================================================== -->
+    <main class="store-main">
+      <div class="store-header">
+        <h2>Nuestros Productos</h2>
+        <p>Descubre nuestros deliciosos helados artesanales</p>
+      </div>
+
+      <!-- Barra de búsqueda integrada -->
+      <div class="store-search-container">
+        <form class="store-search-form" onsubmit="return false;">
+          <input type="text" placeholder="Buscar productos..." id="store-search-input">
+          <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+
+      <!-- Contenedor para mensajes de estado -->
+      <div id="products-status"></div>
+
+      <!-- Grid de productos (se llenará dinámicamente) -->
+      <div class="products-grid" id="products-grid">
+        <!-- Los productos se cargarán aquí mediante JavaScript -->
+      </div>
+    </main>
+  </div>
+
+  <!-- ==========================================================================
+       Footer dinámico
+  ========================================================================== -->
+  <div id="footer-placeholder" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       Scripts JS
+  ========================================================================== -->
+  <script src="/js/global.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/store.js"></script>
+</body>
+</html>

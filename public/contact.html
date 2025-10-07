@@ -1,0 +1,130 @@
+<!-- ============================================================================
+contact.html — Página Contacto Heladería Victoria
+============================================================================ -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- ------------------------------------------------------------------------
+       Metadatos principales
+  ------------------------------------------------------------------------ -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>🍨 Contacto - Creperia OyE</title>
+  <meta name="description" content="Contáctanos en Heladería Victoria. Estamos en Chimaltenango, Guatemala. Envíanos un mensaje o llámanos.">
+
+  <!-- ------------------------------------------------------------------------
+       CSS global + específico
+  ------------------------------------------------------------------------ -->
+  <link rel="stylesheet" href="/css/global.css"/>
+  <link rel="stylesheet" href="/css/contact.css"/>
+
+  <!-- ------------------------------------------------------------------------
+       Font Awesome para iconos
+  ------------------------------------------------------------------------ -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- ==========================================================================
+       Header dinámico
+  ========================================================================== -->
+  <div id="header-placeholder" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       Sección de Contacto
+  ========================================================================== -->
+  <section class="contact-section container">
+    <h2 class="section-title">Contáctanos</h2>
+    <p class="section-subtitle">Estamos aquí para responder tus preguntas y escuchar tus comentarios</p>
+
+    <div class="contact-container">
+      <!-- Formulario de contacto -->
+      <div class="contact-form">
+        <h3>Envíanos un mensaje</h3>
+        <form id="contact-form">
+          <div class="form-group">
+            <label for="name">Nombre completo</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Teléfono</label>
+            <input type="tel" id="phone" name="phone" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="message">Mensaje</label>
+            <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn">Enviar mensaje</button>
+        </form>
+      </div>
+
+      <!-- Información de contacto y mapa -->
+      <div class="contact-info">
+        <h3>Nuestra ubicación</h3>
+
+        <!-- Mapa -->
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123008.32563126612!2d-90.865549025!3d14.782999999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85890c9d662cb3a5%3A0x7d53b9458e027b84!2sChimaltenango%2C%20Guatemala!5e0!3m2!1ses!2sus!4v1716332345678!5m2!1ses!2sus" 
+            width="100%" 
+            height="250" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+        <!-- Información de contacto -->
+        <div class="contact-details">
+          <h3>Otros medios de contacto</h3>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <p>Teléfono</p>
+              <a href="tel:+50259079067">+502 5907-9067</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fab fa-whatsapp"></i>
+            <div>
+              <p>WhatsApp</p>
+              <a href="https://wa.me/50259079067" target="_blank">+502 5907-9067</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <p>Correo electrónico</p>
+              <a href="mailto:info@heladeriavictoria.com">info@heladeriavictoria.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <p>Dirección</p>
+              <span>Chimaltenango, Guatemala</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Footer dinámico
+  ========================================================================== -->
+  <div id="footer-placeholder" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       Scripts JS
+  ========================================================================== -->
+  <script src="/js/global.js"></script>
+  <script src="/js/contact.js"></script>
+  <script src="/js/cart.js"></script>
+</body>
+</html>

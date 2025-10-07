@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>⚙️ Admin - Creperia OyE</title>
+  <link rel="stylesheet" href="/css/global.css"/>
+  <link rel="stylesheet" href="/css/admin.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-placeholder" aria-hidden="true"></div>
+
+  <main class="account-shell">
+    <div class="account-title">MI CUENTA</div>
+
+    <div class="dashboard">
+      <!-- =================== Sidebar =================== -->
+      <aside class="side" aria-label="Menú de administración">
+        <div class="side-title">Panel</div>
+        <nav class="menu" id="admin-menu">
+          <div class="menu-group">Mi Cuenta</div>
+          <a href="#perfil" class="active"><i class="fas fa-user-gear"></i> Mis Datos</a>
+          <a href="#pedidos"><i class="fas fa-receipt"></i> Historial de Pedidos</a>
+          <a href="#config"><i class="fas fa-sliders"></i> Configuración</a>
+
+          <!-- Secciones de administración -->
+          <div class="admin-actions-section">
+            <div class="menu-group admin-actions-legend">Acciones de administrador</div>
+            <a href="dashboard.html" class="admin-only"><i class="fas fa-chart-line"></i> Dashboard</a>
+            <a href="#productos" class="admin-only"><i class="fas fa-ice-cream"></i> Productos</a>
+            <a href="#usuarios" class="admin-only"><i class="fas fa-users"></i> Usuarios</a>
+          </div>
+
+          <small class="muted" style="margin:1rem 1rem 0;">ACCIONES RÁPIDAS</small>
+          <a href="#" id="btn-logout"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</a>
+        </nav>
+      </aside>
+
+      <!-- =================== Panel principal =================== -->
+      <section class="panel">
+        <h2 id="panel-title" class="section-title"><i class="fas fa-user-gear"></i> Mi perfil</h2>
+        <div class="divider"></div>
+
+        <div id="panel-content">
+          <!-- ========== VISTA PERFIL ========== -->
+          <div id="view-perfil" class="card">
+            <div class="grid-2">
+              <div>
+                <div class="row"><label class="muted">Nombre</label><div id="perfil-nombre-view"></div></div>
+                <div class="row"><label class="muted">Teléfono</label><div id="perfil-telefono-view"></div></div>
+                <div class="row"><label class="muted">Dirección</label><div id="perfil-direccion-view"></div></div>
+              </div>
+              <div>
+                <div class="row"><label class="muted">Correo</label><div id="perfil-email-view"></div></div>
+                <div class="row"><label class="muted">Rol</label><div id="perfil-rol-view"></div></div>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn-soft" id="btn-perfil-editar"><i class="fas fa-pen-to-square"></i> Modificar</button>
+            </div>
+          </div>
+
+          <!-- Formulario edición perfil (oculto) -->
+          <form id="form-perfil" class="card" style="display:none;">
+            <div class="grid-2">
+              <div>
+                <div class="row"><label>Nombre</label><input class="input" id="perfil-nombre" required/></div>
+                <div class="row"><label>Teléfono</label><input class="input" id="perfil-telefono"/></div>
+                <div class="row"><label>Dirección</label><textarea class="input" id="perfil-direccion" rows="3"></textarea></div>
+              </div>
+              <div>
+                <div class="row"><label>Correo</label><input class="input" id="perfil-email" type="email" required/></div>
+                <div class="row"><label>Rol</label><input class="input readonly" readonly/></div>
+              </div>
+            </div>
+            <div class="actions">
+              <button type="button" class="btn-soft" style="background:#e5e7eb;color:#111;" id="perfil-cancelar">Cancelar</button>
+              <button type="submit" class="btn-soft"><i class="fas fa-floppy-disk"></i> Guardar</button>
+            </div>
+          </form>
+
+          <!-- ========== VISTA USUARIOS ========== -->
+          <div id="view-usuarios" class="card-table admin-only" style="display:none;">
+            <div class="actions">
+              <button class="btn-soft" id="btn-add-user"><i class="fas fa-user-plus"></i> Agregar usuario</button>
+            </div>
+            <table class="table">
+              <thead><tr><th>ID</th><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Rol</th><th></th></tr></thead>
+              <tbody id="tbl-usuarios-body">
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ========== VISTA PRODUCTOS ========== -->
+          <div id="view-productos" class="card-table admin-only" style="display:none;">
+            <div class="actions">
+              <button class="btn-soft" id="btn-add-product"><i class="fas fa-ice-cream"></i> Agregar producto</button>
+            </div>
+            <table class="table">
+              <thead><tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Activo</th><th></th></tr></thead>
+              <tbody id="tbl-productos-body">
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ========== VISTA PEDIDOS ========== -->
+          <div id="view-pedidos" class="card-table" style="display:none;">
+            <table class="table">
+              <thead><tr><th>#</th><th>Fecha</th><th>Total</th><th>Estado</th><th></th></tr></thead>
+              <tbody id="tbl-pedidos-body">
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ========== VISTA CONFIGURACIÓN ========== -->
+          <div id="view-config" class="card" style="display:none;">
+            <div class="row">
+              <label>Tema</label>
+              <button class="btn-soft" id="btn-toggle-theme"><i class="fas fa-moon"></i> Tema oscuro</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-placeholder" aria-hidden="true"></div>
+
+  <!-- Scripts base -->
+  <script src="/js/global.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/cart.js"></script>
+</body>
+</html>
