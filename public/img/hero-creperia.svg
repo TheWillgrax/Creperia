@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 420" role="img" aria-labelledby="title desc">
+  <title id="title">Ilustración hero de Crepería OyE</title>
+  <desc id="desc">Ilustración vectorial de una crepa servida con frutas frescas, chocolate y decoración cálida.</desc>
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8ed" />
+      <stop offset="100%" stop-color="#fde7c7" />
+    </linearGradient>
+    <linearGradient id="plate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7" />
+      <stop offset="100%" stop-color="#fde68a" />
+    </linearGradient>
+    <linearGradient id="crepe" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5d0a4" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="chocolate" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c2d12" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <radialGradient id="berry" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#fca5a5" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </radialGradient>
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#fbbf24" flood-opacity="0.3" />
+    </filter>
+  </defs>
+  <rect width="540" height="420" rx="32" fill="url(#bg-gradient)" />
+  <g filter="url(#soft-shadow)" transform="translate(40 60)">
+    <ellipse cx="230" cy="240" rx="210" ry="70" fill="#fde68a" opacity="0.45" />
+    <ellipse cx="230" cy="230" rx="200" ry="66" fill="#fff7ed" />
+    <ellipse cx="230" cy="222" rx="180" ry="58" fill="#fef3c7" stroke="#fcd34d" stroke-width="4" />
+    <path d="M94 150c42-48 116-80 188-80 38 0 80 10 107 32 38 30 26 76-18 102-58 34-172 46-240 28-52-14-73-58-37-82z" fill="url(#crepe)" stroke="#f59e0b" stroke-width="5" />
+    <path d="M120 184c18 10 48 18 84 20 62 4 116-10 150-36" fill="none" stroke="#b45309" stroke-width="6" stroke-linecap="round" opacity="0.3" />
+    <path d="M140 142c12-10 32-18 52-22 30-6 66-4 94 6" fill="none" stroke="#f97316" stroke-width="8" stroke-linecap="round" opacity="0.65" />
+    <path d="M136 208c30 8 70 8 100 2 40-7 74-22 104-44" fill="none" stroke="#7c2d12" stroke-width="10" stroke-linecap="round" opacity="0.4" />
+    <g transform="translate(120 90)">
+      <ellipse cx="32" cy="70" rx="28" ry="24" fill="url(#berry)" />
+      <path d="M32 44c8 0 14-6 14-14s-6-14-14-14-14 6-14 14 6 14 14 14z" fill="#f87171" />
+      <path d="M32 24c6 0 10-4 10-10s-4-10-10-10-10 4-10 10 4 10 10 10z" fill="#f97316" opacity="0.45" />
+      <circle cx="24" cy="64" r="6" fill="#fee2e2" />
+      <circle cx="40" cy="76" r="4" fill="#fee2e2" opacity="0.75" />
+      <path d="M28 24c-4-10-10-18-18-20" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" />
+    </g>
+    <g transform="translate(212 80)">
+      <ellipse cx="34" cy="74" rx="30" ry="26" fill="#fde68a" />
+      <ellipse cx="34" cy="70" rx="28" ry="20" fill="#facc15" />
+      <path d="M34 36c10 0 18-8 18-18s-8-18-18-18-18 8-18 18 8 18 18 18z" fill="#fde68a" stroke="#f59e0b" stroke-width="4" />
+      <path d="M34 22c6 0 10-5 10-10s-4-10-10-10-10 5-10 10 4 10 10 10z" fill="#f97316" opacity="0.25" />
+      <circle cx="26" cy="66" r="5" fill="#fff9c2" />
+      <circle cx="44" cy="78" r="4" fill="#fff9c2" opacity="0.6" />
+    </g>
+    <g transform="translate(320 120)">
+      <ellipse cx="26" cy="52" rx="22" ry="18" fill="#60a5fa" />
+      <ellipse cx="26" cy="48" rx="20" ry="14" fill="#93c5fd" />
+      <path d="M26 22c8 0 14-6 14-14s-6-14-14-14-14 6-14 14 6 14 14 14z" fill="#bfdbfe" />
+      <circle cx="18" cy="46" r="4" fill="#e0f2fe" />
+      <circle cx="32" cy="56" r="3" fill="#e0f2fe" />
+      <path d="M24 12c-6-8-12-14-20-16" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round" opacity="0.5" />
+    </g>
+    <path d="M110 150c20 40 120 40 190-4" fill="none" stroke="url(#chocolate)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0.75" />
+    <path d="M160 96c30-20 70-30 110-20" fill="none" stroke="#fde047" stroke-width="14" stroke-linecap="round" opacity="0.3" />
+    <path d="M120 126c24-14 52-18 80-12" fill="none" stroke="#f97316" stroke-width="12" stroke-linecap="round" opacity="0.45" />
+    <g transform="translate(180 190)">
+      <path d="M0 0c20 22 60 22 80 0" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linecap="round" />
+      <path d="M10 14c14 14 46 14 60 0" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round" opacity="0.4" />
+    </g>
+  </g>
+</svg>

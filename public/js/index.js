@@ -43,7 +43,7 @@
           productCard.innerHTML = `
             <div class="product-card">
               <div class="product-image">
-                <img src="${product.image_url || 'https://placehold.co/300x200/cccccc/FFFFFF?text=Imagen+No+Disponible'}" alt="${product.name}">
+                <img src="${product.image_url || '/img/product-placeholder.svg'}" alt="${product.name}">
               </div>
               <div class="product-info">
                 <h3>${product.name}</h3>

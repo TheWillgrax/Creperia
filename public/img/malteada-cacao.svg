@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
+  <title id="title">Malteada de cacao</title>
+  <desc id="desc">Ilustración de una malteada de cacao con crema batida.</desc>
+  <defs>
+    <linearGradient id="background" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8ed" />
+      <stop offset="100%" stop-color="#fde68a" />
+    </linearGradient>
+    <linearGradient id="cup" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+    <linearGradient id="milkshake" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fde68a" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <linearGradient id="choco" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c2d12" />
+      <stop offset="100%" stop-color="#9a3412" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#f59e0b" flood-opacity="0.35" />
+    </filter>
+  </defs>
+  <rect width="240" height="240" rx="30" fill="url(#background)" />
+  <g filter="url(#shadow)" transform="translate(60 20)">
+    <path d="M60 0c-6 0-10 4-10 10v18h20V10c0-6-4-10-10-10z" fill="#f97316" opacity="0.6" />
+    <path d="M52 24h16l6 160c0.4 10-7.6 18-17.6 18h-0.8c-10 0-18-8-17.6-18z" fill="#fcd34d" />
+    <path d="M48 38h24l6 134c0.3 7.6-5.6 14-13.2 14H55.2c-7.6 0-13.5-6.4-13.2-14z" fill="url(#milkshake)" stroke="#f59e0b" stroke-width="4" />
+    <path d="M44 72c8 10 24 16 36 16" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round" opacity="0.4" />
+    <path d="M42 102c10 8 26 12 38 12" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round" opacity="0.4" />
+    <g transform="translate(26 146)">
+      <rect x="0" y="0" width="68" height="50" rx="18" fill="url(#cup)" />
+      <rect x="8" y="10" width="52" height="30" rx="12" fill="#fef3c7" opacity="0.65" />
+      <circle cx="34" cy="25" r="10" fill="#f97316" opacity="0.4" />
+    </g>
+    <path d="M46 30c6-10 16-16 28-16s22 6 28 16" fill="none" stroke="url(#choco)" stroke-width="8" stroke-linecap="round" />
+    <path d="M42 26c4-18 16-26 32-26s28 8 32 26" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linecap="round" />
+    <g transform="translate(20 10)">
+      <path d="M42 0c-18 0-30 12-30 26 0 10 6 18 14 22l16 8 16-8c8-4 14-12 14-22 0-14-12-26-30-26z" fill="#fff" stroke="#f59e0b" stroke-width="4" />
+      <path d="M20 22c8 8 20 10 24 10s16-2 24-10" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round" opacity="0.35" />
+    </g>
+    <circle cx="100" cy="170" r="14" fill="#fcd34d" stroke="#f59e0b" stroke-width="3" />
+    <circle cx="20" cy="170" r="14" fill="#fcd34d" stroke="#f59e0b" stroke-width="3" />
+  </g>
+</svg>

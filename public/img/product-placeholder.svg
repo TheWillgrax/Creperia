@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
+  <title id="title">Producto Crepería OyE</title>
+  <desc id="desc">Placeholder ilustrado con elementos de crepas para productos de la Crepería OyE.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff7ed" />
+      <stop offset="100%" stop-color="#fde68a" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#fb7185" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="220" rx="24" fill="url(#bg)" />
+  <g fill="none" stroke="#fbbf24" stroke-width="8" stroke-linecap="round" opacity="0.3">
+    <path d="M40 100c24-30 60-48 120-48 60 0 96 18 120 48" />
+    <path d="M40 140c24 30 60 48 120 48 60 0 96-18 120-48" />
+  </g>
+  <g transform="translate(70 60)">
+    <path d="M90 0c-30 0-54 20-54 44 0 16 8 30 22 38l-6 26c-1.2 5 3.4 9.2 8.2 7.8L90 108l29.8 7.8c4.8 1.4 9.4-2.8 8.2-7.8l-6-26c14-8 22-22 22-38 0-24-24-44-54-44z" fill="#fff" stroke="#f59e0b" stroke-width="4" />
+    <path d="M90 16c-18 0-30 8-30 18 0 7 5 12 14 14l-6 24 22-6 22 6-6-24c9-2 14-7 14-14 0-10-12-18-30-18z" fill="#fde68a" />
+    <path d="M64 54c10 10 28 16 52 16s42-6 52-16" fill="none" stroke="url(#accent)" stroke-width="10" stroke-linecap="round" opacity="0.7" />
+    <path d="M58 72c12 10 32 16 58 16s46-6 58-16" fill="none" stroke="#f97316" stroke-width="8" stroke-linecap="round" opacity="0.4" />
+  </g>
+  <text x="160" y="196" text-anchor="middle" font-family="'Poppins','Segoe UI',sans-serif" font-size="26" font-weight="700" fill="#b45309">Crepería OyE</text>
+</svg>
