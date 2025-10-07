@@ -43,7 +43,7 @@ const headerHTML = `
   <header>
     <div class="container">
       <nav class="navbar">
-        <a href="index.html" class="logo"><span>Heladeria</span> <span>Victoria</span></a>
+        <a href="index.html" class="logo"><span>Crepería</span> <span>OyE</span></a>
         <ul class="nav-links">
           <li><a href="index.html">Inicio</a></li>
           <li><a href="store.html">Tienda</a></li>
@@ -78,8 +78,8 @@ const headerHTML = `
       <div class="container">
         <div class="footer-grid">
           <div class="footer-column">
-            <h3>Heladeria Victoria</h3>
-            <p>Deliciosos helados de Doña Vicky.</p>
+            <h3>Crepería OyE</h3>
+            <p>Crepas artesanales con ingredientes frescos y locales.</p>
             <div class="social" aria-label="Redes sociales">
               <a href="#" class="social-icon fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
               <a href="#" class="social-icon ig" title="Instagram"><i class="fab fa-instagram"></i></a>
@@ -89,10 +89,10 @@ const headerHTML = `
           </div>
           <div class="footer-column footer-products">
             <h3>Nuestras Creaciones</h3>
-            <a href="#"><i class="fas fa-ice-cream"></i> Helados</a>
-            <a href="#"><i class="fas fa-candy-cane"></i> Toppings</a>
-            <a href="#"><i class="fas fa-glass-whiskey"></i> Copas</a>
-            <a href="#"><i class="fas fa-gift"></i> Promociones</a>
+            <a href="#"><i class="fas fa-cookie"></i> Crepas Dulces</a>
+            <a href="#"><i class="fas fa-bread-slice"></i> Crepas Saladas</a>
+            <a href="#"><i class="fas fa-mug-hot"></i> Bebidas Calientes</a>
+            <a href="#"><i class="fas fa-gift"></i> Combos y Promos</a>
           </div>
           <div class="footer-column footer-quick-links">
             <h3>Explorar</h3>
@@ -105,12 +105,12 @@ const headerHTML = `
             <h3>Contacto</h3>
             <p><i class="fas fa-phone"></i> +502 5907-9067</p>
             <p><i class="fab fa-whatsapp"></i> +502 5907-9067</p>
-            <p><i class="fas fa-envelope"></i> info@heladeriavictoria.com</p>
+            <p><i class="fas fa-envelope"></i> hola@creperiaoye.com</p>
             <p><i class="fas fa-map-marker-alt"></i> Chimaltenango, Guatemala</p>
           </div>
         </div>
         <div class="copyright">
-          <p>&copy; 2025 Heladeria Victoria. Todos los derechos reservados.</p>
+          <p>&copy; 2025 Crepería OyE. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
