@@ -126,30 +126,57 @@ function formatUnits(value) {
 
 function updateProductionTable(tbodyId, totalId, units, unitCosts) {
   const tbody = document.getElementById(tbodyId);
-  if (!tbody) return;
 
-  tbody.innerHTML = '';
-  let total = 0;
-
-  COST_ELEMENTS.forEach((element, index) => {
+  const rows = COST_ELEMENTS.map((element, index) => {
     const unitCost = Number.isFinite(unitCosts[index]) ? unitCosts[index] : 0;
     const costTotal = units * unitCost;
-    total += costTotal;
-
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${element.label}</td>
-      <td>${formatUnits(units)}</td>
-      <td>${formatCurrency(unitCost)}</td>
-      <td>${formatCurrency(costTotal)}</td>
-    `;
-    tbody.appendChild(tr);
+    return {
+      label: element.label,
+      units,
+      unitCost,
+      total: costTotal,
+    };
   });
 
+  if (tbody) {
+    tbody.innerHTML = '';
+    rows.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${row.label}</td>
+        <td>${formatUnits(row.units)}</td>
+        <td>${formatCurrency(row.unitCost)}</td>
+        <td>${formatCurrency(row.total)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  const total = rows.reduce((acc, row) => acc + row.total, 0);
   const totalCell = document.getElementById(totalId);
   if (totalCell) {
     totalCell.textContent = formatCurrency(total);
   }
+
+  return { rows, total };
+}
+
+function getVariationStatus(amount) {
+  if (amount < 0) {
+    return { label: 'Favorable', className: 'ok' };
+  }
+  if (amount > 0) {
+    return { label: 'Desfavorable', className: 'error' };
+  }
+  return { label: 'Sin variación', className: 'pending' };
+}
+
+function formatCoefficient(value) {
+  if (!Number.isFinite(value)) return '0.0000';
+  return value.toLocaleString('es-GT', {
+    minimumFractionDigits: 4,
+    maximumFractionDigits: 4,
+  });
 }
 
 function initCostCalculator() {
@@ -203,9 +230,81 @@ function initCostCalculator() {
       summaryTotalCell.textContent = formatCurrency(summaryTotal);
     }
 
-    updateProductionTable('cost-finished-body', 'cost-finished-total', finished, unitCosts);
-    updateProductionTable('cost-process-body', 'cost-process-total', inProcessUnits, unitCosts);
+    const finishedData = updateProductionTable('cost-finished-body', 'cost-finished-total', finished, unitCosts);
+    const processData = updateProductionTable('cost-process-body', 'cost-process-total', inProcessUnits, unitCosts);
     updateProductionTable('cost-sales-body', 'cost-sales-total', sales, unitCosts);
+
+    const estimatedTotals = COST_ELEMENTS.map((_, index) => {
+      const finishedTotal = finishedData?.rows?.[index]?.total ?? 0;
+      const processTotal = processData?.rows?.[index]?.total ?? 0;
+      return finishedTotal + processTotal;
+    });
+
+    const varianceBody = document.getElementById('cost-variance-body');
+    const coefficientBody = document.getElementById('cost-coefficient-body');
+
+    const totals = {
+      estimated: 0,
+      real: 0,
+      diff: 0,
+    };
+
+    if (varianceBody) {
+      varianceBody.innerHTML = '';
+    }
+
+    if (coefficientBody) {
+      coefficientBody.innerHTML = '';
+    }
+
+    COST_ELEMENTS.forEach((element, index) => {
+      const estimated = Number.isFinite(estimatedTotals[index]) ? estimatedTotals[index] : 0;
+      const real = Number.isFinite(monthlyCosts[index]) ? monthlyCosts[index] : 0;
+      const variation = real - estimated;
+      const status = getVariationStatus(variation);
+
+      totals.estimated += estimated;
+      totals.real += real;
+      totals.diff += variation;
+
+      if (varianceBody) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${element.label}</td>
+          <td>${formatCurrency(estimated)}</td>
+          <td>${formatCurrency(real)}</td>
+          <td>${formatCurrency(variation)}</td>
+          <td><span class="status ${status.className}">${status.label}</span></td>
+        `;
+        varianceBody.appendChild(row);
+      }
+
+      if (coefficientBody) {
+        const coefficient = estimated !== 0 ? variation / estimated : 0;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${element.label}</td>
+          <td>${formatCurrency(variation)}</td>
+          <td>${formatCurrency(estimated)}</td>
+          <td>${formatCoefficient(coefficient)}</td>
+          <td><span class="status ${status.className}">${status.label}</span></td>
+        `;
+        coefficientBody.appendChild(row);
+      }
+    });
+
+    const totalEstimatedEl = document.getElementById('cost-variance-total-estimated');
+    const totalRealEl = document.getElementById('cost-variance-total-real');
+    const totalDiffEl = document.getElementById('cost-variance-total-diff');
+    const totalTypeEl = document.getElementById('cost-variance-total-type');
+
+    if (totalEstimatedEl) totalEstimatedEl.textContent = formatCurrency(totals.estimated);
+    if (totalRealEl) totalRealEl.textContent = formatCurrency(totals.real);
+    if (totalDiffEl) totalDiffEl.textContent = formatCurrency(totals.diff);
+    if (totalTypeEl) {
+      const totalStatus = getVariationStatus(totals.diff);
+      totalTypeEl.innerHTML = `<span class="status ${totalStatus.className}">${totalStatus.label}</span>`;
+    }
 
     const stats = [
       { id: 'cost-summary-started', value: started },
