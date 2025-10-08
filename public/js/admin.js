@@ -161,6 +161,107 @@ function updateProductionTable(tbodyId, totalId, units, unitCosts) {
   return { rows, total };
 }
 
+function updateAdjustmentTable(tbodyId, units, estimatedUnitCosts, correctedUnitCosts, totalIds) {
+  const safeUnits = Number.isFinite(units) ? units : 0;
+  const rows = COST_ELEMENTS.map((element, index) => {
+    const estimatedUnit = Number.isFinite(estimatedUnitCosts[index]) ? estimatedUnitCosts[index] : 0;
+    const correctedUnit = Number.isFinite(correctedUnitCosts[index]) ? correctedUnitCosts[index] : 0;
+    const estimatedTotal = safeUnits * estimatedUnit;
+    const correctedTotal = safeUnits * correctedUnit;
+    const adjustment = correctedTotal - estimatedTotal;
+
+    return {
+      label: element.label,
+      units: safeUnits,
+      estimatedUnit,
+      correctedUnit,
+      estimatedTotal,
+      correctedTotal,
+      adjustment,
+    };
+  });
+
+  const tbody = document.getElementById(tbodyId);
+  if (tbody) {
+    tbody.innerHTML = '';
+    rows.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${row.label}</td>
+        <td>${formatUnits(row.units)}</td>
+        <td>${formatCurrency(row.estimatedUnit)}</td>
+        <td>${formatCurrency(row.estimatedTotal)}</td>
+        <td>${formatCurrency(row.correctedUnit)}</td>
+        <td>${formatCurrency(row.correctedTotal)}</td>
+        <td>${formatCurrency(row.adjustment)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  const totals = rows.reduce(
+    (acc, row) => {
+      acc.estimated += row.estimatedTotal;
+      acc.corrected += row.correctedTotal;
+      acc.adjustment += row.adjustment;
+      return acc;
+    },
+    { estimated: 0, corrected: 0, adjustment: 0 }
+  );
+
+  if (totalIds) {
+    const estimatedEl = document.getElementById(totalIds.estimated);
+    const correctedEl = document.getElementById(totalIds.corrected);
+    const adjustmentEl = document.getElementById(totalIds.adjustment);
+
+    if (estimatedEl) estimatedEl.textContent = formatCurrency(totals.estimated);
+    if (correctedEl) correctedEl.textContent = formatCurrency(totals.corrected);
+    if (adjustmentEl) adjustmentEl.textContent = formatCurrency(totals.adjustment);
+  }
+
+  return {
+    adjustments: rows.map(row => row.adjustment),
+    totals,
+  };
+}
+
+function updateAdjustmentSummary(rows) {
+  const tbody = document.getElementById('cost-adjust-summary-body');
+  const totalRow = document.getElementById('cost-adjust-summary-total-row');
+  if (!tbody || !totalRow) return;
+
+  tbody.innerHTML = '';
+
+  const totalsByElement = COST_ELEMENTS.map(() => 0);
+  let grandTotal = 0;
+
+  rows.forEach(row => {
+    const elementValues = COST_ELEMENTS.map((_, index) => {
+      const value = Array.isArray(row.adjustments) ? row.adjustments[index] : 0;
+      return Number.isFinite(value) ? value : 0;
+    });
+    const rowTotal = elementValues.reduce((acc, value) => acc + value, 0);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row.label}</td>
+      ${elementValues.map(value => `<td>${formatCurrency(value)}</td>`).join('')}
+      <td>${formatCurrency(rowTotal)}</td>
+    `;
+    tbody.appendChild(tr);
+
+    elementValues.forEach((value, index) => {
+      totalsByElement[index] += value;
+    });
+    grandTotal += rowTotal;
+  });
+
+  totalRow.innerHTML = `
+    <td>Total</td>
+    ${totalsByElement.map(value => `<td>${formatCurrency(value)}</td>`).join('')}
+    <td>${formatCurrency(grandTotal)}</td>
+  `;
+}
+
 function getVariationStatus(amount) {
   if (amount < 0) {
     return { label: 'Favorable', className: 'ok' };
@@ -243,6 +344,7 @@ function initCostCalculator() {
     const varianceBody = document.getElementById('cost-variance-body');
     const coefficientBody = document.getElementById('cost-coefficient-body');
     const rectificationBody = document.getElementById('cost-rectification-body');
+    const correctedUnitCosts = COST_ELEMENTS.map(() => 0);
 
     const totals = {
       estimated: 0,
@@ -284,8 +386,12 @@ function initCostCalculator() {
         varianceBody.appendChild(row);
       }
 
+      const coefficient = estimated !== 0 ? variation / estimated : 0;
+      const correctionFigure = unitEstimated * coefficient;
+      const correctedUnit = unitEstimated + correctionFigure;
+      correctedUnitCosts[index] = correctedUnit;
+
       if (coefficientBody) {
-        const coefficient = estimated !== 0 ? variation / estimated : 0;
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${element.label}</td>
@@ -295,20 +401,18 @@ function initCostCalculator() {
           <td><span class="status ${status.className}">${status.label}</span></td>
         `;
         coefficientBody.appendChild(row);
+      }
 
-        if (rectificationBody) {
-          const correctionFigure = unitEstimated * coefficient;
-          const correctedUnit = unitEstimated + correctionFigure;
-          const rectRow = document.createElement('tr');
-          rectRow.innerHTML = `
-            <td>${element.label}</td>
-            <td>${formatCurrency(unitEstimated)}</td>
-            <td>${formatCoefficient(coefficient)}</td>
-            <td>${formatCurrency(correctionFigure)}</td>
-            <td>${formatCurrency(correctedUnit)}</td>
-          `;
-          rectificationBody.appendChild(rectRow);
-        }
+      if (rectificationBody) {
+        const rectRow = document.createElement('tr');
+        rectRow.innerHTML = `
+          <td>${element.label}</td>
+          <td>${formatCurrency(unitEstimated)}</td>
+          <td>${formatCoefficient(coefficient)}</td>
+          <td>${formatCurrency(correctionFigure)}</td>
+          <td>${formatCurrency(correctedUnit)}</td>
+        `;
+        rectificationBody.appendChild(rectRow);
       }
     });
 
@@ -324,6 +428,50 @@ function initCostCalculator() {
       const totalStatus = getVariationStatus(totals.diff);
       totalTypeEl.innerHTML = `<span class="status ${totalStatus.className}">${totalStatus.label}</span>`;
     }
+
+    const finishedInventoryUnits = finished - sales;
+
+    const finishedAdjust = updateAdjustmentTable(
+      'cost-adjust-finished-body',
+      finishedInventoryUnits,
+      unitCosts,
+      correctedUnitCosts,
+      {
+        estimated: 'cost-adjust-finished-estimated-total',
+        corrected: 'cost-adjust-finished-corrected-total',
+        adjustment: 'cost-adjust-finished-adjustment-total',
+      }
+    );
+
+    const processAdjust = updateAdjustmentTable(
+      'cost-adjust-process-body',
+      inProcessUnits,
+      unitCosts,
+      correctedUnitCosts,
+      {
+        estimated: 'cost-adjust-process-estimated-total',
+        corrected: 'cost-adjust-process-corrected-total',
+        adjustment: 'cost-adjust-process-adjustment-total',
+      }
+    );
+
+    const salesAdjust = updateAdjustmentTable(
+      'cost-adjust-sales-body',
+      sales,
+      unitCosts,
+      correctedUnitCosts,
+      {
+        estimated: 'cost-adjust-sales-estimated-total',
+        corrected: 'cost-adjust-sales-corrected-total',
+        adjustment: 'cost-adjust-sales-adjustment-total',
+      }
+    );
+
+    updateAdjustmentSummary([
+      { label: 'Ajuste del costo de existencia de la producción terminada', adjustments: finishedAdjust.adjustments },
+      { label: 'Ajuste del costo de la producción en proceso', adjustments: processAdjust.adjustments },
+      { label: 'Ajuste del costo de la producción vendida', adjustments: salesAdjust.adjustments },
+    ]);
 
     const stats = [
       { id: 'cost-summary-started', value: started },
