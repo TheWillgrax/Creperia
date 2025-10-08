@@ -32,7 +32,7 @@
 
     // Datos “seller” (puedes reemplazar por los reales o traerlos del backend)
     const seller = {
-      name: 'Crepería OyE',
+      name: 'Crepería O&E',
       nit: '1234567-OYE',
       phone: '(502) 5555-5555'
     };

@@ -1103,7 +1103,7 @@ const createDashboardCsv = (data) => {
   const lines = [];
   const formatCurrency = value => `Q${Number(value || 0).toFixed(2)}`;
 
-  lines.push(escapeCsvValue('Reporte Dashboard Crepería OyE'));
+  lines.push(escapeCsvValue('Reporte Dashboard Crepería O&E'));
   lines.push(`${escapeCsvValue('Generado')},${escapeCsvValue(new Date().toISOString())}`);
   lines.push('');
   lines.push(`${escapeCsvValue('Periodo')},${escapeCsvValue('Desde')},${escapeCsvValue('Hasta')}`);
