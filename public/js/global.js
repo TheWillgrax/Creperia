@@ -44,10 +44,10 @@ const headerHTML = `
     <div class="container">
       <nav class="navbar">
         <a href="index.html" class="logo">
-          <img src="/img/logo-oye-mark.svg" alt="" aria-hidden="true" />
+          <img src="/img/logo-crepas-oe.svg" alt="Logotipo Crepería O&amp;E" aria-hidden="true" />
           <span class="logo-text">
             <span>Crepería</span>
-            <span>OyE</span>
+            <span>O&amp;E</span>
           </span>
         </a>
         <ul class="nav-links">
@@ -84,7 +84,7 @@ const headerHTML = `
       <div class="container">
         <div class="footer-grid">
           <div class="footer-column">
-            <h3>Crepería OyE</h3>
+            <h3>Crepería O&amp;E</h3>
             <p>Crepas artesanales con ingredientes frescos y locales.</p>
             <div class="social" aria-label="Redes sociales">
               <a href="#" class="social-icon fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -116,7 +116,7 @@ const headerHTML = `
           </div>
         </div>
         <div class="copyright">
-          <p>&copy; 2025 Crepería OyE. Todos los derechos reservados.</p>
+          <p>&copy; 2025 Crepería O&amp;E. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

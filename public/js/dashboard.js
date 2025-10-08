@@ -1,5 +1,5 @@
   // ============================================================================
-  // dashboard.js - Crepería OyE
+  // dashboard.js - Crepería O&E
   // ============================================================================
 
   const TOKEN_KEY = 'authToken';
@@ -568,7 +568,7 @@ async function exportDashboardToExcel() {
     createMonthlySummarySheet(workbook, dashboardData);
     
     // Generar el archivo
-    const fileName = `Dashboard_Creperia_OyE_${getCurrentDateFormatted()}.xlsx`;
+    const fileName = `Dashboard_Creperia_OE_${getCurrentDateFormatted()}.xlsx`;
     XLSX.writeFile(workbook, fileName);
     
     // Notificar éxito
@@ -870,7 +870,7 @@ async function exportDashboardToExcelWithCharts() {
     const workbook = new ExcelJS.Workbook();
     
     // Configuración del libro
-    workbook.creator = 'Crepería OyE';
+    workbook.creator = 'Crepería O&E';
     workbook.created = new Date();
     workbook.modified = new Date();
     
@@ -894,7 +894,7 @@ async function exportDashboardToExcelWithCharts() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `Dashboard_Creperia_OyE_${getCurrentDateFormatted()}.xlsx`;
+    link.download = `Dashboard_Creperia_OE_${getCurrentDateFormatted()}.xlsx`;
     document.body.appendChild(link);
     link.click();
     link.remove();

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
-  <title id="title">Logotipo Crepería OyE</title>
-  <desc id="desc">Logotipo con un cono de crepa estilizado y tipografía cálida para la marca Crepería OyE.</desc>
+  <title id="title">Logotipo Crepería O&amp;E</title>
+  <desc id="desc">Logotipo con un cono de crepa estilizado y tipografía cálida para la marca Crepería O&amp;E.</desc>
   <defs>
     <linearGradient id="grad-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#fff3e0" />
@@ -35,6 +35,6 @@
   </g>
   <g transform="translate(20 188)">
     <text x="0" y="0" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="28" font-weight="700" fill="#b45309" letter-spacing="0.02em">Crepería</text>
-    <text x="0" y="28" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="44" font-weight="700" fill="url(#grad-outline)" letter-spacing="0.03em">OyE</text>
+    <text x="0" y="28" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="44" font-weight="700" fill="url(#grad-outline)" letter-spacing="0.03em">O&amp;E</text>
   </g>
 </svg>
