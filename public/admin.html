@@ -264,6 +264,41 @@
                     </tfoot>
                   </table>
                 </section>
+
+                <section class="cost-result">
+                  <header>
+                    <h3><i class="fas fa-arrow-trend-down"></i> Variaciones de los elementos del costo</h3>
+                    <p class="cost-result-month" data-month-label>MES EN CURSO</p>
+                  </header>
+                  <table class="table cost-table">
+                    <thead>
+                      <tr><th>Elementos</th><th>Costo estimado</th><th>Costo real</th><th>Variación</th><th>Tipo de variación</th></tr>
+                    </thead>
+                    <tbody id="cost-variance-body"></tbody>
+                    <tfoot>
+                      <tr>
+                        <td>Total</td>
+                        <td id="cost-variance-total-estimated">Q 0.00</td>
+                        <td id="cost-variance-total-real">Q 0.00</td>
+                        <td id="cost-variance-total-diff">Q 0.00</td>
+                        <td id="cost-variance-total-type"><span class="status pending">Sin variación</span></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </section>
+
+                <section class="cost-result">
+                  <header>
+                    <h3><i class="fas fa-divide"></i> Coeficientes rectificadores por elemento del costo</h3>
+                    <p class="cost-result-month" data-month-label>MES EN CURSO</p>
+                  </header>
+                  <table class="table cost-table">
+                    <thead>
+                      <tr><th>Elementos</th><th>Variación</th><th>Costo estimado</th><th>Coeficiente</th><th>Tipo de variación</th></tr>
+                    </thead>
+                    <tbody id="cost-coefficient-body"></tbody>
+                  </table>
+                </section>
               </div>
             </div>
           </div>
