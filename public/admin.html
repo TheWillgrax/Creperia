@@ -32,6 +32,7 @@
             <a href="dashboard.html" class="admin-only"><i class="fas fa-chart-line"></i> Dashboard</a>
             <a href="#productos" class="admin-only"><i class="fas fa-utensils"></i> Productos</a>
             <a href="#usuarios" class="admin-only"><i class="fas fa-users"></i> Usuarios</a>
+            <a href="#costos" class="admin-only"><i class="fas fa-calculator"></i> Costos estimados</a>
           </div>
 
           <small class="muted" style="margin:1rem 1rem 0;">ACCIONES RÁPIDAS</small>
@@ -104,6 +105,167 @@
               <tbody id="tbl-productos-body">
               </tbody>
             </table>
+          </div>
+
+          <!-- ========== VISTA COSTOS ESTIMADOS ========== -->
+          <div id="view-costos" class="card admin-only" style="display:none;">
+            <div class="card-title"><i class="fas fa-calculator"></i> Valoración de costos estimados</div>
+            <p class="card-helper">Ingresa los costos estimados por crepa, los consumos del mes y la información de producción para obtener automáticamente la valorización de la producción terminada, en proceso y vendida.</p>
+
+            <div class="costs-layout">
+              <form id="costos-form" class="costs-inputs" novalidate>
+                <section class="cost-card">
+                  <h3><i class="fas fa-scale-balanced"></i> Costos estimados por crepa</h3>
+                  <div class="field-group">
+                    <div class="field">
+                      <label for="cost-unit-mp">Materia prima por crepa</label>
+                      <input id="cost-unit-mp" class="input" type="number" min="0" step="0.01" placeholder="Q0.00" required>
+                    </div>
+                    <div class="field">
+                      <label for="cost-unit-mo">Mano de obra por crepa</label>
+                      <input id="cost-unit-mo" class="input" type="number" min="0" step="0.01" placeholder="Q0.00" required>
+                    </div>
+                    <div class="field">
+                      <label for="cost-unit-gf">Gastos de fabricación por crepa</label>
+                      <input id="cost-unit-gf" class="input" type="number" min="0" step="0.01" placeholder="Q0.00" required>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="cost-card">
+                  <h3><i class="fas fa-sack-dollar"></i> Consumos del mes</h3>
+                  <div class="field-group">
+                    <div class="field">
+                      <label for="cost-month-mp">Materia prima consumida</label>
+                      <input id="cost-month-mp" class="input" type="number" min="0" step="0.01" placeholder="Q0.00">
+                    </div>
+                    <div class="field">
+                      <label for="cost-month-mo">Mano de obra pagada</label>
+                      <input id="cost-month-mo" class="input" type="number" min="0" step="0.01" placeholder="Q0.00">
+                    </div>
+                    <div class="field">
+                      <label for="cost-month-gf">Gastos de fabricación</label>
+                      <input id="cost-month-gf" class="input" type="number" min="0" step="0.01" placeholder="Q0.00">
+                    </div>
+                  </div>
+                </section>
+
+                <section class="cost-card">
+                  <h3><i class="fas fa-industry"></i> Producción y ventas</h3>
+                  <div class="field-group">
+                    <div class="field">
+                      <label for="cost-production-started">Producción comenzada (unidades)</label>
+                      <input id="cost-production-started" class="input" type="number" min="0" step="0.01" placeholder="0">
+                    </div>
+                    <div class="field">
+                      <label for="cost-production-finished">Producción terminada (unidades)</label>
+                      <input id="cost-production-finished" class="input" type="number" min="0" step="0.01" placeholder="0">
+                    </div>
+                    <div class="field">
+                      <label for="cost-sales">Ventas (unidades)</label>
+                      <input id="cost-sales" class="input" type="number" min="0" step="0.01" placeholder="0">
+                    </div>
+                    <div class="field">
+                      <label for="cost-month-name">Mes del reporte</label>
+                      <input id="cost-month-name" class="input" type="text" placeholder="Agosto">
+                    </div>
+                  </div>
+                  <div class="cost-form-actions">
+                    <button type="reset" class="btn-light"><i class="fas fa-eraser"></i> Limpiar datos</button>
+                  </div>
+                </section>
+              </form>
+
+              <div class="costs-results">
+                <div class="cost-warning" id="cost-warning" role="alert" aria-live="polite" style="display:none;">
+                  <i class="fas fa-triangle-exclamation"></i>
+                  La producción terminada no puede ser mayor que la producción comenzada. Se usará la diferencia máxima posible para calcular la producción en proceso.
+                </div>
+
+                <div class="cost-stats">
+                  <div class="cost-stat">
+                    <span class="cost-stat-label">Producción comenzada</span>
+                    <span class="cost-stat-value" id="cost-summary-started">0 crepas</span>
+                  </div>
+                  <div class="cost-stat">
+                    <span class="cost-stat-label">Producción terminada</span>
+                    <span class="cost-stat-value" id="cost-summary-finished">0 crepas</span>
+                  </div>
+                  <div class="cost-stat">
+                    <span class="cost-stat-label">Producción en proceso</span>
+                    <span class="cost-stat-value" id="cost-summary-process">0 crepas</span>
+                  </div>
+                  <div class="cost-stat">
+                    <span class="cost-stat-label">Ventas</span>
+                    <span class="cost-stat-value" id="cost-summary-sales">0 crepas</span>
+                  </div>
+                </div>
+
+                <section class="cost-result">
+                  <header>
+                    <h3><i class="fas fa-clipboard-list"></i> Consumos del mes</h3>
+                    <p class="cost-result-month" data-month-label>MES EN CURSO</p>
+                  </header>
+                  <table class="table cost-table">
+                    <thead>
+                      <tr><th>Elementos</th><th>Costo del mes</th></tr>
+                    </thead>
+                    <tbody id="cost-summary-body"></tbody>
+                    <tfoot>
+                      <tr><td>Total</td><td id="cost-summary-total">Q 0.00</td></tr>
+                    </tfoot>
+                  </table>
+                </section>
+
+                <section class="cost-result">
+                  <header>
+                    <h3><i class="fas fa-check-circle"></i> Valorización de producción terminada</h3>
+                    <p class="cost-result-month" data-month-label>MES EN CURSO</p>
+                  </header>
+                  <table class="table cost-table">
+                    <thead>
+                      <tr><th>Elementos</th><th>Unidades</th><th>Costo unitario</th><th>Costo total</th></tr>
+                    </thead>
+                    <tbody id="cost-finished-body"></tbody>
+                    <tfoot>
+                      <tr><td colspan="3">Total producción terminada</td><td id="cost-finished-total">Q 0.00</td></tr>
+                    </tfoot>
+                  </table>
+                </section>
+
+                <section class="cost-result">
+                  <header>
+                    <h3><i class="fas fa-spinner"></i> Valorización de producción en proceso</h3>
+                    <p class="cost-result-month" data-month-label>MES EN CURSO</p>
+                  </header>
+                  <table class="table cost-table">
+                    <thead>
+                      <tr><th>Elementos</th><th>Unidades</th><th>Costo unitario</th><th>Costo total</th></tr>
+                    </thead>
+                    <tbody id="cost-process-body"></tbody>
+                    <tfoot>
+                      <tr><td colspan="3">Total producción en proceso</td><td id="cost-process-total">Q 0.00</td></tr>
+                    </tfoot>
+                  </table>
+                </section>
+
+                <section class="cost-result">
+                  <header>
+                    <h3><i class="fas fa-store"></i> Valorización de producción vendida</h3>
+                    <p class="cost-result-month" data-month-label>MES EN CURSO</p>
+                  </header>
+                  <table class="table cost-table">
+                    <thead>
+                      <tr><th>Elementos</th><th>Unidades</th><th>Costo unitario</th><th>Costo total</th></tr>
+                    </thead>
+                    <tbody id="cost-sales-body"></tbody>
+                    <tfoot>
+                      <tr><td colspan="3">Total producción vendida</td><td id="cost-sales-total">Q 0.00</td></tr>
+                    </tfoot>
+                  </table>
+                </section>
+              </div>
+            </div>
           </div>
 
           <!-- ========== VISTA PEDIDOS ========== -->

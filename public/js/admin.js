@@ -66,9 +66,18 @@ const viewMap = {
   '#perfil': { el: '#view-perfil', icon: 'fa-user-gear', title: 'Mis Datos' },
   '#usuarios': { el: '#view-usuarios', icon: 'fa-users', title: 'Usuarios', adminOnly: true },
   '#productos': { el: '#view-productos', icon: 'fa-cookie', title: 'Productos', adminOnly: true },
+  '#costos': { el: '#view-costos', icon: 'fa-calculator', title: 'Costos estimados', adminOnly: true },
   '#pedidos': { el: '#view-pedidos', icon: 'fa-receipt', title: 'Historial de Pedidos' },
   '#config': { el: '#view-config', icon: 'fa-sliders', title: 'Configuración' },
 };
+
+const COST_ELEMENTS = [
+  { label: 'Materia prima', unitInput: 'cost-unit-mp', monthInput: 'cost-month-mp' },
+  { label: 'Mano de obra', unitInput: 'cost-unit-mo', monthInput: 'cost-month-mo' },
+  { label: 'Gastos de fabricación', unitInput: 'cost-unit-gf', monthInput: 'cost-month-gf' },
+];
+
+let costCalcInitialized = false;
 
 let configInitialized = false;
 function initConfig() {
@@ -87,6 +96,139 @@ function initConfig() {
     window.toggleTheme && window.toggleTheme();
     updateBtn();
   });
+}
+
+function readNumber(id) {
+  const input = document.getElementById(id);
+  if (!input) return 0;
+  const value = parseFloat(input.value);
+  return Number.isFinite(value) ? value : 0;
+}
+
+function formatCurrency(value) {
+  const number = Number(value);
+  const safeNumber = Number.isFinite(number) ? number : 0;
+  return `Q ${safeNumber.toLocaleString('es-GT', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
+function formatUnits(value) {
+  const number = Number(value);
+  const safeNumber = Number.isFinite(number) ? number : 0;
+  const hasDecimals = !Number.isInteger(safeNumber);
+  return safeNumber.toLocaleString('es-GT', {
+    minimumFractionDigits: hasDecimals ? 2 : 0,
+    maximumFractionDigits: hasDecimals ? 2 : 0,
+  });
+}
+
+function updateProductionTable(tbodyId, totalId, units, unitCosts) {
+  const tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+
+  tbody.innerHTML = '';
+  let total = 0;
+
+  COST_ELEMENTS.forEach((element, index) => {
+    const unitCost = Number.isFinite(unitCosts[index]) ? unitCosts[index] : 0;
+    const costTotal = units * unitCost;
+    total += costTotal;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${element.label}</td>
+      <td>${formatUnits(units)}</td>
+      <td>${formatCurrency(unitCost)}</td>
+      <td>${formatCurrency(costTotal)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  const totalCell = document.getElementById(totalId);
+  if (totalCell) {
+    totalCell.textContent = formatCurrency(total);
+  }
+}
+
+function initCostCalculator() {
+  if (costCalcInitialized) return;
+
+  const form = document.getElementById('costos-form');
+  if (!form) return;
+
+  costCalcInitialized = true;
+
+  const warningEl = document.getElementById('cost-warning');
+
+  const update = () => {
+    const unitCosts = COST_ELEMENTS.map(item => readNumber(item.unitInput));
+    const monthlyCosts = COST_ELEMENTS.map(item => readNumber(item.monthInput));
+    const started = readNumber('cost-production-started');
+    const finished = readNumber('cost-production-finished');
+    const sales = readNumber('cost-sales');
+    const monthInput = document.getElementById('cost-month-name');
+    const monthRaw = monthInput ? monthInput.value.trim() : '';
+    const monthLabel = monthRaw ? `MES DE ${monthRaw.toUpperCase()}` : 'MES EN CURSO';
+
+    document.querySelectorAll('[data-month-label]').forEach(el => {
+      el.textContent = monthLabel;
+    });
+
+    const exceedsProduction = finished > started;
+    if (warningEl) {
+      warningEl.style.display = exceedsProduction ? '' : 'none';
+    }
+
+    const inProcessUnits = exceedsProduction ? 0 : Math.max(started - finished, 0);
+
+    const summaryBody = document.getElementById('cost-summary-body');
+    if (summaryBody) {
+      summaryBody.innerHTML = '';
+      COST_ELEMENTS.forEach((element, index) => {
+        const cost = Number.isFinite(monthlyCosts[index]) ? monthlyCosts[index] : 0;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${element.label}</td>
+          <td>${formatCurrency(cost)}</td>
+        `;
+        summaryBody.appendChild(tr);
+      });
+    }
+
+    const summaryTotal = monthlyCosts.reduce((acc, value) => acc + (Number.isFinite(value) ? value : 0), 0);
+    const summaryTotalCell = document.getElementById('cost-summary-total');
+    if (summaryTotalCell) {
+      summaryTotalCell.textContent = formatCurrency(summaryTotal);
+    }
+
+    updateProductionTable('cost-finished-body', 'cost-finished-total', finished, unitCosts);
+    updateProductionTable('cost-process-body', 'cost-process-total', inProcessUnits, unitCosts);
+    updateProductionTable('cost-sales-body', 'cost-sales-total', sales, unitCosts);
+
+    const stats = [
+      { id: 'cost-summary-started', value: started },
+      { id: 'cost-summary-finished', value: finished },
+      { id: 'cost-summary-process', value: inProcessUnits },
+      { id: 'cost-summary-sales', value: sales },
+    ];
+
+    stats.forEach(({ id, value }) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.textContent = `${formatUnits(value)} crepas`;
+      }
+    });
+  };
+
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  form.addEventListener('reset', () => {
+    setTimeout(update, 0);
+  });
+
+  update();
 }
 
 function showView(hash) {
@@ -119,6 +261,8 @@ function showView(hash) {
     loadUsers();
   } else if (hash === '#productos') {
     loadProducts();
+  } else if (hash === '#costos') {
+    initCostCalculator();
   } else if (hash === '#pedidos') {
     loadOrders();
   } else if (hash === '#config') {
