@@ -78,6 +78,10 @@ const COST_ELEMENTS = [
 ];
 
 let costCalcInitialized = false;
+let costReportMeta = {
+  monthLabel: 'MES EN CURSO',
+  fileLabel: 'mes-en-curso',
+};
 
 let configInitialized = false;
 function initConfig() {
@@ -122,6 +126,309 @@ function formatUnits(value) {
     minimumFractionDigits: hasDecimals ? 2 : 0,
     maximumFractionDigits: hasDecimals ? 2 : 0,
   });
+}
+
+function sanitizeFileName(value) {
+  if (!value) return '';
+  return value
+    .toString()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .toLowerCase();
+}
+
+function buildCostReportMarkup({ forPrint = false } = {}) {
+  const container = document.querySelector('#view-costos .costs-results');
+  if (!container) return '';
+
+  const clone = container.cloneNode(true);
+  clone.querySelectorAll('[data-export-ignore]').forEach(el => el.remove());
+
+  const generatedAt = new Date();
+  const formattedDate = generatedAt.toLocaleDateString('es-GT', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+
+  const styles = `
+    :root {
+      --color-primary: #d97706;
+      --color-contrast: #92400e;
+      --color-dark: #422006;
+      --color-bg: #fdf6ed;
+      --color-light: #ffffff;
+      --color-text-muted: #8d7b68;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--color-bg);
+      color: var(--color-dark);
+    }
+
+    .report-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      background: rgba(255,255,255,0.92);
+    }
+
+    .report-header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .report-header h1 {
+      margin: 0;
+      font-size: 1.85rem;
+      color: var(--color-primary);
+    }
+
+    .report-period {
+      font-weight: 700;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .report-generated {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+    }
+
+    .costs-results {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .cost-warning {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      color: #92400e;
+      padding: 1rem 1.1rem;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      font-size: 0.9rem;
+    }
+
+    .cost-warning i {
+      font-size: 1.1rem;
+    }
+
+    .cost-stats {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .cost-stat {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 14px;
+      border: 1px solid rgba(217, 119, 6, 0.12);
+      padding: 1rem 1.1rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .cost-stat-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--color-text-muted);
+    }
+
+    .cost-stat-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-contrast);
+    }
+
+    .cost-result {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      padding: 1.4rem 1.6rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .cost-result header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cost-result h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .cost-result-month {
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid rgba(217, 119, 6, 0.15);
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .table thead th {
+      border-bottom: 2px solid rgba(217, 119, 6, 0.3);
+      background: rgba(217, 119, 6, 0.08);
+      font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.4px;
+    }
+
+    .table tfoot td {
+      font-weight: 700;
+      background: rgba(217, 119, 6, 0.07);
+    }
+
+    .status {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+      text-transform: capitalize;
+    }
+
+    .status.ok {
+      background: linear-gradient(135deg, #e6f7ee, #d4f4dd);
+      color: #0c9550;
+    }
+
+    .status.pending {
+      background: linear-gradient(135deg, #fef7ec, #fdecd2);
+      color: #f5a623;
+    }
+
+    .status.error {
+      background: linear-gradient(135deg, #fde8e8, #fcd3d3);
+      color: #e53e3e;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .report-container {
+        box-shadow: none;
+        padding: 1.5rem;
+      }
+
+      .cost-result {
+        box-shadow: none;
+      }
+    }
+  `;
+
+  const headContent = `
+    <meta charset="UTF-8">
+    <title>Costos estimados</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>${styles}</style>
+  `;
+
+  const bodyContent = `
+    <div class="report-container">
+      <header class="report-header">
+        <h1>Valoración de costos estimados</h1>
+        <p class="report-period">${costReportMeta.monthLabel}</p>
+        <p class="report-generated">Reporte generado el ${formattedDate}</p>
+      </header>
+      ${clone.outerHTML}
+    </div>
+  `;
+
+  const printScript = forPrint
+    ? '<script>window.addEventListener("load", () => { window.print(); setTimeout(() => window.close(), 300); });</script>'
+    : '';
+
+  return `<!DOCTYPE html><html lang="es"><head>${headContent}</head><body>${bodyContent}${printScript}</body></html>`;
+}
+
+function downloadCostReportExcel() {
+  const html = buildCostReportMarkup();
+  if (!html) {
+    alert('No se encontró información para exportar.');
+    return;
+  }
+
+  const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  const fileLabel = costReportMeta.fileLabel || 'costos-estimados';
+  link.download = `costos-estimados-${fileLabel || 'reporte'}.xls`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+function downloadCostReportPdf() {
+  const html = buildCostReportMarkup({ forPrint: true });
+  if (!html) {
+    alert('No se encontró información para exportar.');
+    return;
+  }
+
+  const reportWindow = window.open('', '_blank');
+  if (!reportWindow) {
+    alert('No se pudo abrir la ventana de impresión. Verifica el bloqueador de ventanas emergentes.');
+    return;
+  }
+
+  reportWindow.document.open();
+  reportWindow.document.write(html);
+  reportWindow.document.close();
 }
 
 function updateProductionTable(tbodyId, totalId, units, unitCosts) {
@@ -289,6 +596,22 @@ function initCostCalculator() {
   costCalcInitialized = true;
 
   const warningEl = document.getElementById('cost-warning');
+  const excelButton = document.getElementById('btn-cost-export-excel');
+  const pdfButton = document.getElementById('btn-cost-export-pdf');
+
+  if (excelButton) {
+    excelButton.addEventListener('click', event => {
+      event.preventDefault();
+      downloadCostReportExcel();
+    });
+  }
+
+  if (pdfButton) {
+    pdfButton.addEventListener('click', event => {
+      event.preventDefault();
+      downloadCostReportPdf();
+    });
+  }
 
   const update = () => {
     const unitCosts = COST_ELEMENTS.map(item => readNumber(item.unitInput));
@@ -299,6 +622,10 @@ function initCostCalculator() {
     const monthInput = document.getElementById('cost-month-name');
     const monthRaw = monthInput ? monthInput.value.trim() : '';
     const monthLabel = monthRaw ? `MES DE ${monthRaw.toUpperCase()}` : 'MES EN CURSO';
+    const monthSlug = monthRaw ? sanitizeFileName(monthRaw) : '';
+
+    costReportMeta.monthLabel = monthLabel;
+    costReportMeta.fileLabel = monthSlug || 'mes-en-curso';
 
     document.querySelectorAll('[data-month-label]').forEach(el => {
       el.textContent = monthLabel;
