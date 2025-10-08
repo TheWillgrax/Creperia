@@ -242,6 +242,7 @@ function initCostCalculator() {
 
     const varianceBody = document.getElementById('cost-variance-body');
     const coefficientBody = document.getElementById('cost-coefficient-body');
+    const rectificationBody = document.getElementById('cost-rectification-body');
 
     const totals = {
       estimated: 0,
@@ -256,12 +257,16 @@ function initCostCalculator() {
     if (coefficientBody) {
       coefficientBody.innerHTML = '';
     }
+    if (rectificationBody) {
+      rectificationBody.innerHTML = '';
+    }
 
     COST_ELEMENTS.forEach((element, index) => {
       const estimated = Number.isFinite(estimatedTotals[index]) ? estimatedTotals[index] : 0;
       const real = Number.isFinite(monthlyCosts[index]) ? monthlyCosts[index] : 0;
       const variation = real - estimated;
       const status = getVariationStatus(variation);
+      const unitEstimated = Number.isFinite(unitCosts[index]) ? unitCosts[index] : 0;
 
       totals.estimated += estimated;
       totals.real += real;
@@ -290,6 +295,20 @@ function initCostCalculator() {
           <td><span class="status ${status.className}">${status.label}</span></td>
         `;
         coefficientBody.appendChild(row);
+
+        if (rectificationBody) {
+          const correctionFigure = unitEstimated * coefficient;
+          const correctedUnit = unitEstimated + correctionFigure;
+          const rectRow = document.createElement('tr');
+          rectRow.innerHTML = `
+            <td>${element.label}</td>
+            <td>${formatCurrency(unitEstimated)}</td>
+            <td>${formatCoefficient(coefficient)}</td>
+            <td>${formatCurrency(correctionFigure)}</td>
+            <td>${formatCurrency(correctedUnit)}</td>
+          `;
+          rectificationBody.appendChild(rectRow);
+        }
       }
     });
 
